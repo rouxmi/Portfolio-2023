@@ -10,5 +10,10 @@
   },
   "devDependencies": {
     "vite": "^4.2.0"
+  },
+  "dependencies": {
+    "events": "^3.3.0",
+    "three": "^0.151.3",
+    "vite-plugin-glsl": "^1.1.2"
   }
 }
