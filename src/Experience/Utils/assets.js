@@ -2,70 +2,91 @@ export default [
 
     {spawnIsland: {
         assets: [ 
-            {name: "spawnIsland",
+            {name: "Island",
             type: "glbModel",
             url: "models/islands/spawn island.glb",
             },
-            {name: "interactiveSpawnObject",
+            {name: "interactiveObject",
             type: "glbModel",
             url: "models/interactive/spawn interactive object.glb",
             },
+            {name: "colliderIsland",
+            type: "glbModel",
+            url: "models/colliders/spawn collider.glb",
+            },
         ],
-    }},
-    {aboutMeIsland: {
+    },
+    aboutMeIsland: {
         assets: [
-            {name: "aboutMeIsland",
+            {name: "Island",
             type: "glbModel",
             url: "models/islands/about me island.glb",
             },
-            {name: "interactiveAboutMeObject",
+            {name: "interactiveObject",
             type: "glbModel",
             url: "models/interactive/about me interactive object.glb",
             },
-        ],
-    }},
-    {projectIsland: {
-        assets: [
-            {name: "projectIsland",
+            {name: "colliderIsland",
             type: "glbModel",
-            url: "models/islands/project island.glb",
-            },
-            {name: "interactiveProjectObject",
-            type: "glbModel",
-            url: "models/interactive/project interactive object.glb",
+            url: "models/colliders/about me collider.glb",
             },
         ],
-    }},
-    {contactIsland: {
+    },
+    projectsIsland: {
         assets: [
-            {name: "contactIsland",
+            {name: "Island",
+            type: "glbModel",
+            url: "models/islands/projects island.glb",
+            },
+            {name: "interactiveObject",
+            type: "glbModel",
+            url: "models/interactive/projects interactive object.glb",
+            },
+            {name: "colliderIsland",
+            type: "glbModel",
+            url: "models/colliders/projects collider.glb",
+            },
+        ],
+    },
+    contactIsland: {
+        assets: [
+            {name: "Island",
             type: "glbModel",
             url: "models/islands/contact island.glb",
             },
-            {name: "interactiveContactObject",
+            {name: "interactiveObject",
             type: "glbModel",
             url: "models/interactive/contact interactive object.glb",
             },
+            {name: "colliderIsland",
+            type: "glbModel",
+            url: "models/colliders/contact collider.glb",
+            },
         ],
-    }},
-    {hobbiesIsland: {
+    },
+    hobbiesIsland: {
         assets: [
-            {name: "hobbiesIsland",
+            {name: "Island",
             type: "glbModel",
             url: "models/islands/hobbies island.glb",
             },
-            {name: "interactiveHobbiesObject",
+            {name: "interactiveObject",
             type: "glbModel",
             url: "models/interactive/hobbies interactive object.glb",
             },
-        ],
-    }},
-    {landscapeWithColider: {
-        assets: [
-            {name: "terrainColider",
+            {name: "colliderIsland",
             type: "glbModel",
-            url: "models/landscape/terrain colider.glb",
+            url: "models/colliders/hobbies collider.glb",
+            },
+        ],
+    },
+    landscape: {
+        assets: [
+            {name: "LandScape",
+            type: "glbModel",
+            url: "models/landscape.glb",
         }
         ],
-    }},
+    }
+}
 ]

@@ -17,6 +17,7 @@ export default class LocalStorage{
             playerRotation: "0|0|0",
         };
 
+
         if (localStorage.getItem("playerPosition") && 
             localStorage.getItem("playerRotation")){
 
@@ -54,6 +55,7 @@ export default class LocalStorage{
     }
 
     setStateObject(){
+
         this.state = {
             location: this.stringState.playerPosition.split("|")[0],
 

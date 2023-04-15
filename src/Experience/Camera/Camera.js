@@ -29,7 +29,11 @@ export default class Camera{
             this.params.far
         );
 
-        this.perspectiveCamera.position.set(0, 0, -5);
+        this.perspectiveCamera.position.set(
+            -39.61353072752363,  
+            28.877048693658686, 
+            -58.499093459760516
+        )
         this.scene.add(this.perspectiveCamera);
     }
 

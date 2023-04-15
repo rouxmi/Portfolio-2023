@@ -30,10 +30,11 @@ export default class Resources extends EventEmitter {
 
     startLoading(){
         this.loaded = 0;
+
         this.queue = this.assets[0][this.location].assets.length;
 
+
         for (const asset of this.assets[0][this.location].assets){
-            console.log("Start Loading: ", asset);
             if (asset.type === "glbModel"){
                 this.loaders.gltfLoader.load(asset.url, (glbFile) => {
                     this.singleAssetLoaded(glbFile, asset.name);
@@ -50,16 +51,15 @@ export default class Resources extends EventEmitter {
             //         this.singleAssetLoaded(cubeTexture, asset.name);
             //     }
             //     );
-
-
         }
+        
     }
 
     singleAssetLoaded(asset, name){
         this.items[this.location][name] = asset;
         this.loaded++;
 
-        if (this.loaded === this.queue){
+        if (this.loaded === this.queue ){
             this.emitReady();
         }
     }
