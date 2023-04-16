@@ -20,12 +20,12 @@ export default class Resources extends EventEmitter {
             this.items[this.location] = {};
             this.startLoading();
         }else{
-            this.emitReady();
+            this.emitReady(this.location);
         }
     }
 
-    emitReady(){
-        this.emit("ready");
+    emitReady(location){
+        this.emit(location+"ready");
     }
 
     startLoading(){
@@ -61,7 +61,7 @@ export default class Resources extends EventEmitter {
         this.loaded++;
 
         if (this.loaded === this.queue ){
-            this.emitReady();
+            this.emitReady(this.location);
         }
     }
 

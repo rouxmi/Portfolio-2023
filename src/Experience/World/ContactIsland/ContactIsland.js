@@ -6,10 +6,16 @@ import { EventEmitter } from "events";
 export default class ContactIsland extends EventEmitter {
     constructor() {
         super();
-        this.island = new Island();
-        this.interactiveObjects = new InteractiveObjects();
+        
 
     }
+
+    init() {
+        this.island = new Island();
+        this.interactiveObjects = new InteractiveObjects();
+        this.emit("IslandContactLoaded");
+    }
+
 
     resize() {
     }

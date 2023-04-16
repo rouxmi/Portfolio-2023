@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import Experience from '../../../Experience';
 
-import { OctreeHelper } from 'three/examples/jsm/helpers/OctreeHelper.js';
 
 export default class Island {
     constructor() {
@@ -31,8 +30,6 @@ export default class Island {
         }
         );
 
-        const helper = new OctreeHelper(this.octree);
-        helper.visible = true;
-        //this.scene.add(helper);
+        
     }
 }

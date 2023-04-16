@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import Experience from '../../../Experience';
 
-import { OctreeHelper } from 'three/examples/jsm/helpers/OctreeHelper.js';
 
 export default class Island {
     constructor() {
@@ -17,6 +16,22 @@ export default class Island {
 
     initIsland() {
         this.island = this.resources.items.contactIsland.Island.scene;
+        //get the children with transparent in their name and apply the material to them
+        this.island.traverse((child) => {
+            if (child.name.includes("transparent")) {
+                const color = child.material.color;
+                child.material = new THREE.MeshPhysicalMaterial();
+                child.material.side = THREE.DoubleSide;
+                child.material.roughness = 0;
+                child.material.color.set(color);
+                child.material.ior = 3;
+                child.material.transmission = 0.9;
+                child.material.opacity = 0.05;
+                child.material.depthWrite = false;
+            }
+        }
+        );
+
         this.scene.add(this.island);
 
     }
@@ -26,14 +41,11 @@ export default class Island {
         this.octree.fromGraphNode(collider);
         collider.traverse((child) => {
             if (child instanceof THREE.Mesh) {
-                // child.material.dispose();
-                // child.geometry.dispose();
+                child.material.dispose();
+                child.geometry.dispose();
             }
         }
         );
 
-        const helper = new OctreeHelper(this.octree);
-        helper.visible = true;
-        this.scene.add(helper);
     }
 }

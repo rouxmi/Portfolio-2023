@@ -16,7 +16,6 @@ export default class InteractiveObjects {
     initInteractive() {
         this.interactiveObject = this.resources.items.spawnIsland.interactiveObject.scene;
         this.octree.fromGraphNode(this.interactiveObject);
-        // make sure to make the object invisible
         this.interactiveObject.traverse((child) => {
             if (child instanceof THREE.Mesh) {
                 child.material.transparent = true;

@@ -35,7 +35,7 @@ export default class Player {
         this.player.raycaster = new THREE.Raycaster();
         this.player.raycaster.far =8;
 
-        this.player.height = 2.5;
+        this.player.height = 2.7;
         this.player.position = new THREE.Vector3(-40.13299673513737,  
                 24.73186758224389,
                 -58.42532007498026);
@@ -66,6 +66,9 @@ export default class Player {
 
     addEventListeners() {
 
+        //a eventlistener to check if the user make a return home windows while playing
+        
+        
         document.addEventListener("keydown", this.onKeyDown);
         document.addEventListener("keyup", this.onKeyUp);
 
@@ -74,7 +77,9 @@ export default class Player {
     }
 
     onKeyDown = (event) => {
+
         if (document.pointerLockElement !== document.body) return;
+
 
         if (event.code === "KeyW") {
             this.action.forward = true;
@@ -104,10 +109,14 @@ export default class Player {
             this.action.sprint = true;
         }
 
+        
+
     }
 
     onKeyUp = (event) => {
+
         if (document.pointerLockElement !== document.body) return;
+
 
         if (event.code === "KeyW") {
             this.action.forward = false;
@@ -132,6 +141,8 @@ export default class Player {
         if (event.code === "ShiftLeft") {
             this.action.sprint = false;
         }
+
+        
     }
 
 
@@ -264,6 +275,10 @@ export default class Player {
 
     setInteractiveObjects(interactiveObjects) {
         this.player.interactiveObjects = interactiveObjects;
+    }
+
+    addInteractiveObjects(interactiveObjects) {
+        this.player.interactiveObjects.add(interactiveObjects);
     }
 
     getCameraLookAtVector() {
