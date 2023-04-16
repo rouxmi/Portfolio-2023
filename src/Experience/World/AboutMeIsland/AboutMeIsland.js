@@ -9,7 +9,7 @@ export default class AboutMeIsland extends EventEmitter {
         this.island = new Island();
         this.interactiveObjects = new InteractiveObjects();
 
-
+        this.emit("ready");
     }
 
     resize() {

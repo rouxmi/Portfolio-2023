@@ -18,6 +18,6 @@ export default class Loaders {
         this.loaders.dracoLoader.setDecoderPath('/draco/');
         this.loaders.gltfLoader.setDRACOLoader(this.loaders.dracoLoader);
 
-        this.loaders.textureLoader = new THREE.TextureLoader();
+        // this.loaders.textureLoader = new THREE.TextureLoader();
     }
 }

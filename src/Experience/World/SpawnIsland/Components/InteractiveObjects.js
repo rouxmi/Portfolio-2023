@@ -14,7 +14,7 @@ export default class InteractiveObjects {
 
     initInteractive() {
         this.interactiveObject = this.resources.items.spawnIsland.interactiveObject.scene;
-        this.scene.add(this.interactiveObject);
+        //this.scene.add(this.interactiveObject);
 
     }
 

@@ -46,11 +46,12 @@ export default class Resources extends EventEmitter {
                 }
                 );
             }
-            // else if (asset.type === "cubeTexture"){
-            //     this.loaders.cubeTextureLoader.load(asset.url, (cubeTexture) => {
-            //         this.singleAssetLoaded(cubeTexture, asset.name);
-            //     }
-            //     );
+            else if (asset.type === "cubeTexture"){
+                this.loaders.cubeTextureLoader.load(asset.url, (cubeTexture) => {
+                    this.singleAssetLoaded(cubeTexture, asset.name);
+                }
+            );
+            }
         }
         
     }

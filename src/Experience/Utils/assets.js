@@ -14,6 +14,21 @@ export default [
             type: "glbModel",
             url: "models/colliders/spawn collider.glb",
             },
+            {name: "Landscape",
+                type: "glbModel",
+                url: "models/landscape.glb",
+            },
+            {name : "SkyBox",
+                type: "cubeTexture",
+                url: [
+                    "texture/skybox/px.png",
+                    "texture/skybox/nx.png",
+                    "texture/skybox/py.png",
+                    "texture/skybox/ny.png",
+                    "texture/skybox/pz.png",
+                    "texture/skybox/nz.png",
+                ],
+            },
         ],
     },
     aboutMeIsland: {
@@ -80,13 +95,5 @@ export default [
             },
         ],
     },
-    landscape: {
-        assets: [
-            {name: "LandScape",
-            type: "glbModel",
-            url: "models/landscape.glb",
-        }
-        ],
-    }
 }
 ]

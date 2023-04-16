@@ -25,14 +25,14 @@ export default class Island {
         this.octree.fromGraphNode(collider);
         collider.traverse((child) => {
             if (child instanceof THREE.Mesh) {
-                // child.material.dispose();
-                // child.geometry.dispose();
+                child.material.dispose();
+                child.geometry.dispose();
             }
         }
         );
 
         const helper = new OctreeHelper(this.octree);
         helper.visible = true;
-        this.scene.add(helper);
+        //this.scene.add(helper);
     }
 }

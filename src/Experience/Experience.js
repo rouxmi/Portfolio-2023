@@ -73,8 +73,14 @@ export default class Experience{
     update(){
         if (this.camera) this.camera.update();
         if (this.renderer) this.renderer.update();
-        if (this.world) this.world.update();
         if (this.time) this.time.update();
+
+        const STEPS_PER_FRAME = 10;
+        this.deltaTime = Math.min(0.1,this.time.delta) / STEPS_PER_FRAME;
+        for (let i = 0; i < STEPS_PER_FRAME; i++) {
+            if (this.world) this.world.update(this.deltaTime);
+        }
+
 
         window.requestAnimationFrame(() => {
             this.update();
