@@ -36,13 +36,10 @@ export default class World extends EventEmitter {
         this.resources.determineLoad(this.state.location);
         
         this.resources.on("ready", () => {
-
             if (this.player == null){
                 this.player = new Player();
             }
             this.setWorld();
-            this.light = new THREE.AmbientLight(0xffffff, 0.5);
-            this.scene.add(this.light);
         });
     }
 
@@ -61,6 +58,7 @@ export default class World extends EventEmitter {
         //     this.AboutMeIsland = new AboutMeIsland();
         // });
         this.SpawnIsland = new SpawnIsland();
+        this.player.setInteractiveObjects(this.SpawnIsland.interactiveObjects.interactiveObject);
     }
 
     update(deltaTime){

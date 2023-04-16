@@ -29,5 +29,8 @@ export default class Environment {
         this.water.material.depthWrite = false;
         this.scene.add(this.Landscape);
 
+        this.light = new THREE.AmbientLight(0xffffff, 0.5);
+        this.scene.add(this.light);
+
     }
 }

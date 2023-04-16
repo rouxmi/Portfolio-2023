@@ -33,6 +33,7 @@ export default class Player {
         };
 
         this.player.raycaster = new THREE.Raycaster();
+        this.player.raycaster.far =8;
 
         this.player.height = 2.5;
         this.player.position = new THREE.Vector3(-40.13299673513737,  
@@ -51,7 +52,6 @@ export default class Player {
 
         this.player.speedMultiplier = 0.8;
 
-        //make the player a 
         this.player.collider = new Capsule(
             new THREE.Vector3(),
             new THREE.Vector3(),
@@ -78,6 +78,10 @@ export default class Player {
 
         if (event.code === "KeyW") {
             this.action.forward = true;
+            if (Date.now() - this.lastKeyW < 200) {
+                this.action.sprint = true;
+            }
+            this.lastKeyW = Date.now();
         }
 
         if (event.code === "KeyA") {
@@ -134,6 +138,7 @@ export default class Player {
     onPointerDown = (event) => {
         if (event.pointerType === "mouse") {
             document.body.requestPointerLock();
+            this.action = {};
             return;
         }
     }
@@ -181,9 +186,7 @@ export default class Player {
         return this.player.direction;
     }
 
-
-    update(deltaTime) {
-
+    updateMovement(deltaTime) {
         this.player.previousPosition.copy(this.player.body.position);
 
         const speed = (this.player.onFloor ? 1.75 : 0.2) * 
@@ -257,16 +260,49 @@ export default class Player {
             this.player.collider.end.copy(SpawnPos);
             this.player.collider.end.y += this.player.height;
         }
+    }
+
+    setInteractiveObjects(interactiveObjects) {
+        this.player.interactiveObjects = interactiveObjects;
+    }
+
+    getCameraLookAtVector() {
+        const direction = new THREE.Vector3(0,0,-1);
+        return direction.applyQuaternion(
+            this.player.body.quaternion
+        );
+    }
+
+    updateRaycaster() {
+        this.player.raycaster.ray.origin.copy(this.player.body.position);
+        this.player.raycaster.ray.direction.copy(this.getCameraLookAtVector());
+
+        const intersects = this.player.raycaster.intersectObjects(
+            this.player.interactiveObjects.children
+        );
+
+        if (intersects.length > 0) {
+            this.activeObject = intersects[0].object.name;
+        } else {
+            this.activeObject = "";
+        }
+
+        if (this.activeObject !== this.previousActiveObject) {
+            this.previousActiveObject = this.activeObject;
+            console.log(this.previousActiveObject);
+        }
+    }
+
+    update(deltaTime) {
+
+        this.updateMovement(deltaTime);
+        this.updateRaycaster();
 
         // console.log(this.player.body.position);
 
         // console.log(this.player.collider.start);
 
         // console.log(this.player.body.rotation)
-
-
-
-
     }
 
     resize() {
