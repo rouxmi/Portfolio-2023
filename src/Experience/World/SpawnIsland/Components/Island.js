@@ -22,6 +22,20 @@ export default class Island {
         this.island.children[0].material = new THREE.MeshPhysicalMaterial({
             map : this.islandTexture
         });
+        this.island.traverse((child) => {
+            if (child instanceof THREE.Mesh) {
+                child.receiveShadow = true;
+                child.castShadow = true;
+            }
+            if (child instanceof THREE.Group) {
+                child.traverse((child) => {
+                    if (child instanceof THREE.Mesh) {
+                        child.receiveShadow = true;
+                        child.castShadow = true;
+                    }
+                });
+            }
+        });
         this.scene.add(this.island);
     }
 

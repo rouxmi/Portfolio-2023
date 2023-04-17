@@ -29,12 +29,16 @@ export default class Environment {
         this.water.material.depthWrite = false;
         this.scene.add(this.Landscape);
 
-        this.light = new THREE.AmbientLight(0xffffff, 0.5);
-        this.scene.add(this.light);
-
         this.sun = new THREE.DirectionalLight(0xffffff, 0.5);
         this.sun.position.set(0, 100, 0);
         this.sun.castShadow = true;
+        this.sun.shadow.mapSize.width = 2048;
+        this.sun.shadow.mapSize.height = 2048;
+        this.sun.shadow.camera.near = 0.5;
+        this.sun.shadow.camera.far = 500;
         this.scene.add(this.sun);
+
+        this.light = new THREE.AmbientLight(0xffffff, 0.5);
+        this.scene.add(this.light);
     }
 }

@@ -81,6 +81,12 @@ export default class Experience{
             if (this.world) this.world.update(this.deltaTime);
         }
 
+        //every 10 frames save to local storage
+
+        if (this.time.elapsed % 10 === 0){
+            this.localStorage.update();
+        }
+
 
         window.requestAnimationFrame(() => {
             this.update();

@@ -17,6 +17,7 @@ export default class LocalStorage{
             playerRotation: "0|0|0",
         };
 
+        localStorage.clear();
 
         if (localStorage.getItem("playerPosition") && 
             localStorage.getItem("playerRotation")){
@@ -36,7 +37,10 @@ export default class LocalStorage{
     updateLocalStorage(){
         localStorage.setItem(
             "playerPosition",
-            '${this.state.location}|${this.camera.perspectiveCamera.position.x}|${this.camera.perspectiveCamera.position.y}|${this.camera.perspectiveCamera.position.z}'
+            this.stringState.location + 
+            '|' + this.camera.perspectiveCamera.position.x +
+            '|' + this.camera.perspectiveCamera.position.y +
+            '|' + this.camera.perspectiveCamera.position.z  
             );
         localStorage.setItem(
             "playerRotation",

@@ -26,7 +26,20 @@ export default class Island {
         this.computer.children[1].material = new THREE.MeshBasicMaterial({
             map : this.resources.items.aboutMeIsland.Video
         });
-        this.island.children[1].material.map = this.resources.items.aboutMeIsland.Video;
+        this.island.traverse((child) => {
+            if (child instanceof THREE.Mesh) {
+                child.receiveShadow = true;
+                child.castShadow = true;
+            }
+            if (child instanceof THREE.Group) {
+                child.traverse((child) => {
+                    if (child instanceof THREE.Mesh) {
+                        child.receiveShadow = true;
+                        child.castShadow = true;
+                    }
+                });
+            }
+        });
         this.scene.add(this.island);
 
     }

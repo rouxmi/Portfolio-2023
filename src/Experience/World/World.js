@@ -39,6 +39,7 @@ export default class World extends EventEmitter {
         this.resources.on("spawnIslandready", () => {
             if (this.player == null){
                 this.player = new Player();
+                console.log(this.player);
             }
             this.setWorld();
         });

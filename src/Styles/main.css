@@ -11,6 +11,51 @@ body {
   overflow: hidden;
 }
 
+/* .teleport-message {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  z-index: 1;
+  animation: appear 2s ease-in-out;
+}
 
+.teleport-message__text {
+  margin: auto;
+}
+
+.teleport-message__image {
+  width: 2rem;
+  height: 50px;
+  margin: auto 1rem;
+}
+
+
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-1rem);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+} */
+
+.hidden{
+  display: none;
+}
 
 

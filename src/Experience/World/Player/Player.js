@@ -9,6 +9,7 @@ export default class Player {
         this.experience = new Experience();
         this.camera = this.experience.camera;
         this.time = this.experience.time;
+        this.world = this.experience.world;
 
         this.octree = this.experience.world.octree; 
 
@@ -109,7 +110,6 @@ export default class Player {
             this.action.sprint = true;
         }
 
-        
 
     }
 
@@ -141,7 +141,6 @@ export default class Player {
         if (event.code === "ShiftLeft") {
             this.action.sprint = false;
         }
-
         
     }
 
@@ -268,7 +267,7 @@ export default class Player {
             this.player.body.rotation.set(0,3.4,0);
             this.player.velocity = this.player.spawn.velocity;
             this.player.collider.start.copy(SpawnPos);
-            this.player.collider.end.copy(SpawnPos);
+            this.player.collider.end.copy(SpawnPos+this.player.height);
             this.player.collider.end.y += this.player.height;
         }
     }
@@ -304,7 +303,31 @@ export default class Player {
 
         if (this.activeObject !== this.previousActiveObject) {
             this.previousActiveObject = this.activeObject;
-            console.log(this.previousActiveObject);
+            this.launchInteractiveObjectEvent(this.activeObject);
+        }
+    }
+
+    launchInteractiveObjectEvent(activeObject) {
+        if (activeObject.includes("spawn")) {
+            this.world.SpawnIsland.launchInteractiveObjects(
+                activeObject
+                );
+        } else if (activeObject.includes("about_me")) {
+            this.world.AboutMeIsland.launchInteractiveObjects(
+                activeObject
+            );
+        } else if (activeObject.includes("project")) {
+            this.world.ProjectsIsland.launchInteractiveObjects(
+                activeObject
+            );
+        } else if (activeObject.includes("contact")) {
+            this.world.ContactIsland.launchInteractiveObjects(
+                activeObject
+            );
+        } else if (activeObject.includes("hobbies")) {
+            this.world.HobbiesIsland.launchInteractiveObjects(
+                activeObject
+            );
         }
     }
 
