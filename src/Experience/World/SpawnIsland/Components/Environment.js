@@ -32,5 +32,9 @@ export default class Environment {
         this.light = new THREE.AmbientLight(0xffffff, 0.5);
         this.scene.add(this.light);
 
+        this.sun = new THREE.DirectionalLight(0xffffff, 0.5);
+        this.sun.position.set(0, 100, 0);
+        this.sun.castShadow = true;
+        this.scene.add(this.sun);
     }
 }

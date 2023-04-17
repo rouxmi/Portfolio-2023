@@ -18,6 +18,10 @@ export default [
                 type: "glbModel",
                 url: "models/landscape.glb",
             },
+            {name: "Texture",
+            type: "texture",
+            url: "texture/textureSpawnIsland.webp",
+            },
             {name : "SkyBox",
                 type: "cubeTexture",
                 url: [
@@ -45,6 +49,12 @@ export default [
             type: "glbModel",
             url: "models/colliders/about me collider.glb",
             },
+            {name: "Texture",
+            type: "texture",
+            url: "texture/textureAboutMeIsland.webp",},
+            {name: "Video",
+            type: "video",
+            url: "video/AboutMeIslandVideo.mp4",},
         ],
     },
     projectsIsland: {
@@ -61,6 +71,9 @@ export default [
             type: "glbModel",
             url: "models/colliders/projects collider.glb",
             },
+            {name: "Texture",
+            type: "texture",
+            url: "texture/textureProjectIsland.webp",},
         ],
     },
     contactIsland: {
@@ -77,6 +90,9 @@ export default [
             type: "glbModel",
             url: "models/colliders/contact collider.glb",
             },
+            {name: "Texture",
+            type: "texture",
+            url: "texture/textureContactIsland.webp",},
         ],
     },
     hobbiesIsland: {
@@ -93,6 +109,9 @@ export default [
             type: "glbModel",
             url: "models/colliders/hobbies collider.glb",
             },
+            {name: "Texture",
+            type: "texture",
+            url: "texture/textureHobbiesIsland.webp",},
         ],
     },
 }

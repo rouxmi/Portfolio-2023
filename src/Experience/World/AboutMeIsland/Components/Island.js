@@ -16,6 +16,17 @@ export default class Island {
 
     initIsland() {
         this.island = this.resources.items.aboutMeIsland.Island.scene;
+        this.islandTexture = this.resources.items.aboutMeIsland.Texture;
+        this.islandTexture.flipY = false;
+        this.islandTexture.encoding = THREE.sRGBEncoding;
+        this.island.children[0].material = new THREE.MeshPhysicalMaterial({
+            map : this.islandTexture
+        });
+        this.computer = this.island.children.find((child) => child.name === "Computer");
+        this.computer.children[1].material = new THREE.MeshBasicMaterial({
+            map : this.resources.items.aboutMeIsland.Video
+        });
+        this.island.children[1].material.map = this.resources.items.aboutMeIsland.Video;
         this.scene.add(this.island);
 
     }

@@ -16,6 +16,12 @@ export default class Island {
 
     initIsland() {
         this.island = this.resources.items.projectsIsland.Island.scene;
+        this.islandTexture = this.resources.items.projectsIsland.Texture;
+        this.islandTexture.flipY = false;
+        this.islandTexture.encoding = THREE.sRGBEncoding;
+        this.island.children[0].material = new THREE.MeshPhysicalMaterial({
+            map : this.islandTexture
+        });
         this.scene.add(this.island);
 
     }
