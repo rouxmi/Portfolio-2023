@@ -39,7 +39,6 @@ export default class World extends EventEmitter {
         this.resources.on("spawnIslandready", () => {
             if (this.player == null){
                 this.player = new Player();
-                console.log(this.player);
             }
             this.setWorld();
         });
@@ -54,7 +53,6 @@ export default class World extends EventEmitter {
         
         this.SpawnIsland = new SpawnIsland();
         this.SpawnIsland.on("IslandSpawnLoaded", () => {
-            console.log("SpawnIsland ready");
             this.resources.determineLoad("aboutMeIsland");
 
             this.resources.on("aboutMeIslandready", () => {
@@ -68,7 +66,6 @@ export default class World extends EventEmitter {
     setAboutMeIsland() {
         this.AboutMeIsland = new AboutMeIsland();
         this.AboutMeIsland.on("IslandAboutMeLoaded", () => {
-            console.log("AboutMeIsland ready");
             this.resources.determineLoad("projectsIsland");
             this.resources.on("projectsIslandready", () => {
                 this.setProjectsIsland();
@@ -82,7 +79,6 @@ export default class World extends EventEmitter {
     setProjectsIsland() {
         this.ProjectsIsland = new ProjectsIsland();
         this.ProjectsIsland.on("IslandProjectsLoaded", () => {
-            console.log("ProjectsIsland ready");
             this.resources.determineLoad("hobbiesIsland");
             this.resources.on("hobbiesIslandready", () => {
                 this.setHobbiesIsland();
@@ -95,7 +91,6 @@ export default class World extends EventEmitter {
     setHobbiesIsland() {
         this.HobbiesIsland = new HobbiesIsland();
         this.HobbiesIsland.on("IslandHobbiesLoaded", () => {
-            console.log("HobbiesIsland ready");
             this.resources.determineLoad("contactIsland");
             this.resources.on("contactIslandready", () => {
                 this.setContactIsland();
@@ -109,7 +104,6 @@ export default class World extends EventEmitter {
     setContactIsland() {
         this.ContactIsland = new ContactIsland();
         this.ContactIsland.on("IslandContactLoaded", () => {
-            console.log("ContactIsland ready");
             this.player.addInteractiveObjects(this.ContactIsland.interactiveObjects.interactiveObject);
         });
         this.ContactIsland.init();

@@ -44,18 +44,20 @@ export default class LocalStorage{
             );
         localStorage.setItem(
             "playerRotation",
-            '${this.camera.perspectiveCamera.rotation._x}|${this.camera.perspectiveCamera.rotation._y}|${this.camera.perspectiveCamera.rotation._z}'
-            );
-        
+            this.camera.perspectiveCamera.rotation.x +
+            '|' + this.camera.perspectiveCamera.rotation.y +
+            '|' + this.camera.perspectiveCamera.rotation.z
+            ); 
+
         this.stringState.playerPosition = 
             localStorage.getItem("playerPosition");
         this.stringState.playerRotation = 
             localStorage.getItem("playerRotation");
-
     }
 
     setLocation(location){
         this.stringState.location = location;
+        this.experience.world.player.player.island = location;
     }
 
     setStateObject(){

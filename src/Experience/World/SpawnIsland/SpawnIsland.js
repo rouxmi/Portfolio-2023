@@ -11,7 +11,7 @@ export default class SpawnIsland extends EventEmitter {
     constructor() {
         super();
         this.experience = new Experience();
-        this.player = this.experience.world.player.player;
+        this.player = this.experience.world.player;
 
 
         this.setOtherIslandPosition();
@@ -63,8 +63,20 @@ export default class SpawnIsland extends EventEmitter {
     }
 
     handlePetitPanneau(interactiveObject) {
-        
-        this.showTeleportMessage();
+        if (interactiveObject.includes("about_me")) {
+            this.islandName = "island About Me";
+        } else if (interactiveObject.includes("hobbies")) {
+            this.islandName = "Hobbies island";
+        } else if (interactiveObject.includes("project")) {
+            this.islandName = "Project's island";
+        } else if (interactiveObject.includes("contact")) {
+            this.islandName = "Contact's island";
+        }
+        const textIsland = "Left click to teleport to the "+ this.islandName;
+        this.showTeleportMessage(textIsland);
+    }
+
+    interactiveActionExecute(interactiveObject){
         if (interactiveObject.includes("about_me")) {
             this.teleportToIsland(this.aboutMeIslandPosition, this.aboutMeIslandRotation);
         } else if (interactiveObject.includes("hobbies")) {
@@ -76,10 +88,12 @@ export default class SpawnIsland extends EventEmitter {
         }
     }
 
-    showTeleportMessage() {
+    showTeleportMessage(textIsland) {
         const teleportMessage = document.querySelector(".teleport-message");
         teleportMessage.classList.remove("hidden");
-        
+        const teleportMessageText = document.querySelector(".teleport-message_text");
+        teleportMessageText.innerHTML = textIsland;
+        this.player.display = teleportMessage;
     }
 
 
@@ -88,12 +102,12 @@ export default class SpawnIsland extends EventEmitter {
     }
 
     teleportToIsland(position, rotation) {
-        this.player.collider.start.copy(position);
-        this.player.collider.end.copy(position);
-        this.player.collider.end.y += this.player.height;
-        this.player.body.position.copy(position);
-        this.player.body.rotation.copy(rotation);
-        this.player.velocity.set(0, 0, 0);
+        this.player.player.collider.start.copy(position);
+        this.player.player.collider.end.copy(position);
+        this.player.player.collider.end.y += this.player.player.height;
+        this.player.player.body.position.copy(position);
+        this.player.player.body.rotation.copy(rotation);
+        this.player.player.velocity.set(0, 0, 0);
     }
 
 

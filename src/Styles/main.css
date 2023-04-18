@@ -11,51 +11,54 @@ body {
   overflow: hidden;
 }
 
-/* .teleport-message {
+.teleport-message {
   position: absolute;
   bottom: 0;
+  left : 25%;
+  width: 50%;
   display: flex;
-  left: 0;
-  width: 100%;
-  padding: 1rem;
+  align-items: center;
+  justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
   text-align: center;
   font-size: 1.5rem;
   font-weight: 700;
   z-index: 1;
-  animation: appear 2s ease-in-out;
+  border-radius: 50px 50px 0 0;
+  animation: appear 0.5s ease-in-out;
 }
 
-.teleport-message__text {
-  margin: auto;
+.teleport-message_image{
+  object-fit: cover;
+  height: 48px;
+  width: 48px;
 }
 
-.teleport-message__image {
-  width: 2rem;
-  height: 50px;
-  margin: auto 1rem;
-}
 
 
 
 @keyframes appear {
   0% {
     opacity: 0;
-    transform: translateY(0);
+    transform: translateY(2rem);
   }
-  50% {
-    opacity: 1;
-    transform: translateY(-1rem);
+
+  25% {
+    opacity: 0.4;
   }
+
   100% {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(0);
+    border-radius: 50px 50px 0 0;
   }
-} */
+} 
 
 .hidden{
   display: none;
 }
+
+/* make a transition to fade out when teleport message is assign hidden */
 
 

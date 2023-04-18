@@ -2,16 +2,20 @@ import * as THREE from "three";
 import Experience from "../../Experience";
 
 import { Capsule} from "three/examples/jsm/math/Capsule";
+import { EventEmitter } from "events";
 
-export default class Player {
+export default class Player extends EventEmitter{
 
     constructor() {
+        super();
         this.experience = new Experience();
         this.camera = this.experience.camera;
         this.time = this.experience.time;
         this.world = this.experience.world;
 
         this.octree = this.experience.world.octree; 
+
+        this.display = null;
 
         this.initPlayer();
         this.initControls();
@@ -33,19 +37,23 @@ export default class Player {
             velocity : new THREE.Vector3(),
         };
 
+        this.player.island = localStorage.getItem("playerPosition").split("|")[0];
+
         this.player.raycaster = new THREE.Raycaster();
         this.player.raycaster.far =8;
 
         this.player.height = 2.7;
-        this.player.position = new THREE.Vector3(-40.13299673513737,  
-                24.73186758224389,
-                -58.42532007498026);
+        this.player.position = new THREE.Vector3(
+            -40.13299673513737,
+            24.73186758224389,
+            -58.42532007498026,);
 
         this.player.body.position.copy(this.player.position);
         this.player.body.position.y += this.player.height;
 
         this.player.rotation = new THREE.Euler();
         this.player.rotation.order = "YXZ";
+
 
         this.player.velocity = new THREE.Vector3();
 
@@ -58,17 +66,28 @@ export default class Player {
             new THREE.Vector3(),
             0.45,
         );
+
+        this.player.canInteract = false;
+
+        this.teleportToSpawn();
     }
 
     initControls() {
         this.action= {};
-
     }
 
-    addEventListeners() {
+    teleportToSpawn() {
+        const SpawnPos = new THREE.Vector3( -40.13299673513737,  24.73186758224389,  -58.42532007498026);
+        this.player.body.position.copy(SpawnPos);
+        this.player.body.rotation.set(0,3.4,0);
+        this.player.velocity = this.player.spawn.velocity;
+        this.player.collider.start.copy(SpawnPos);
+        this.player.collider.end.copy(SpawnPos);
+        this.player.collider.end.y += this.player.height;
+    }
 
-        //a eventlistener to check if the user make a return home windows while playing
-        
+
+    addEventListeners() {
         
         document.addEventListener("keydown", this.onKeyDown);
         document.addEventListener("keyup", this.onKeyUp);
@@ -147,11 +166,34 @@ export default class Player {
 
     onPointerDown = (event) => {
         if (event.pointerType === "mouse") {
-            document.body.requestPointerLock();
-            this.action = {};
+            if (document.pointerLockElement !== document.body) {
+                this.action = {};
+                document.body.requestPointerLock();
+            } else {
+                if (this.player.canInteract){
+                    this.interactiveActionExecute();
+                }
+            }
             return;
         }
     }
+
+    interactiveActionExecute(){
+        console.log(this.player.island );
+        if (this.player.island === "spawnIsland"){
+            this.world.SpawnIsland.interactiveActionExecute(this.activeObject);
+        } else if (this.player.island === "aboutMeIsland"){
+            this.world.AboutMeIsland.interactiveActionExecute();
+        } else if (this.player.island === "projetIsland"){
+            this.world.ProjectsIsland.interactiveActionExecute();
+        } else if (this.player.island === "contactIsland"){
+            this.world.ContactIsland.interactiveActionExecute();
+        } else if (this.player.island === "hobbiesIsland"){
+            this.world.HobbiesIsland.interactiveActionExecute();
+        }
+
+    }
+
 
     onDesktopPointerMove = (event) => {
         if (document.pointerLockElement !== document.body) return;
@@ -262,13 +304,7 @@ export default class Player {
         
 
         if (this.player.body.position.y < 0) {
-            const SpawnPos = new THREE.Vector3( -40.13299673513737,  24.73186758224389,  -58.42532007498026);
-            this.player.body.position.copy(SpawnPos);
-            this.player.body.rotation.set(0,3.4,0);
-            this.player.velocity = this.player.spawn.velocity;
-            this.player.collider.start.copy(SpawnPos);
-            this.player.collider.end.copy(SpawnPos+this.player.height);
-            this.player.collider.end.y += this.player.height;
+            this.teleportToSpawn();
         }
     }
 
@@ -303,28 +339,44 @@ export default class Player {
 
         if (this.activeObject !== this.previousActiveObject) {
             this.previousActiveObject = this.activeObject;
-            this.launchInteractiveObjectEvent(this.activeObject);
+            if (this.activeObject !== "") {
+                this.player.canInteract = true;
+                this.launchInteractiveObjectEvent(this.activeObject);
+            }
+            else{
+                if (this.display !== null) {
+                    this.display.classList.add("hidden");
+                }
+                this.player.canInteract = false;
+            }
         }
     }
 
+
+
     launchInteractiveObjectEvent(activeObject) {
         if (activeObject.includes("spawn")) {
+            this.experience.localStorage.setLocation("spawnIsland");
             this.world.SpawnIsland.launchInteractiveObjects(
                 activeObject
                 );
         } else if (activeObject.includes("about_me")) {
+            this.experience.localStorage.setLocation("aboutMeIsland");
             this.world.AboutMeIsland.launchInteractiveObjects(
                 activeObject
             );
         } else if (activeObject.includes("project")) {
+            this.experience.localStorage.setLocation("projetIsland");
             this.world.ProjectsIsland.launchInteractiveObjects(
                 activeObject
             );
         } else if (activeObject.includes("contact")) {
+            this.experience.localStorage.setLocation("contactIsland");
             this.world.ContactIsland.launchInteractiveObjects(
                 activeObject
             );
         } else if (activeObject.includes("hobbies")) {
+            this.experience.localStorage.setLocation("hobbiesIsland");
             this.world.HobbiesIsland.launchInteractiveObjects(
                 activeObject
             );
