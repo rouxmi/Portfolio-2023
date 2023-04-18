@@ -17,16 +17,9 @@ export default class InteractiveObjects {
         this.interactiveObject = this.resources.items.contactIsland.interactiveObject.scene;
         this.octree.fromGraphNode(this.interactiveObject);
         this.interactiveObject.traverse((child) => {
-            if (child.name.includes("transparent")) {
-                const color = child.material.color;
-                child.material = new THREE.MeshPhysicalMaterial();
-                child.material.side = THREE.DoubleSide;
-                child.material.roughness = 0;
-                child.material.color.set(color);
-                child.material.ior = 3;
-                child.material.transmission = 0.9;
-                child.material.opacity = 0.05;
-                child.material.depthWrite = false;
+            if (child instanceof THREE.Mesh) {
+                child.material.transparent = true;
+                child.material.opacity = 0;
             }
         }
         );

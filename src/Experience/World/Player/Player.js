@@ -40,7 +40,8 @@ export default class Player extends EventEmitter{
         this.player.island = localStorage.getItem("playerPosition").split("|")[0];
 
         this.player.raycaster = new THREE.Raycaster();
-        this.player.raycaster.far =8;
+        this.player.raycaster.far = 10;
+        this.player.raycaster.near = 0.1;
 
         this.player.height = 2.7;
         this.player.position = new THREE.Vector3(
@@ -187,7 +188,7 @@ export default class Player extends EventEmitter{
         } else if (this.player.island === "projetIsland"){
             this.world.ProjectsIsland.interactiveActionExecute();
         } else if (this.player.island === "contactIsland"){
-            this.world.ContactIsland.interactiveActionExecute();
+            this.world.ContactIsland.interactiveActionExecute(this.activeObject);
         } else if (this.player.island === "hobbiesIsland"){
             this.world.HobbiesIsland.interactiveActionExecute();
         }
@@ -341,7 +342,7 @@ export default class Player extends EventEmitter{
             this.previousActiveObject = this.activeObject;
             if (this.activeObject !== "") {
                 this.player.canInteract = true;
-                this.launchInteractiveObjectEvent(this.activeObject);
+                this.launchInteractiveObjectEvent(this.activeObject,intersects[0]);
             }
             else{
                 if (this.display !== null) {
@@ -349,12 +350,14 @@ export default class Player extends EventEmitter{
                 }
                 this.player.canInteract = false;
             }
+        } else if (this.activeObject.includes("contact") && intersects[0].distance < 1) {
+            this.launchInteractiveObjectEvent(this.activeObject,intersects[0]);
         }
     }
 
 
 
-    launchInteractiveObjectEvent(activeObject) {
+    launchInteractiveObjectEvent(activeObject,intersect) {
         if (activeObject.includes("spawn")) {
             this.experience.localStorage.setLocation("spawnIsland");
             this.world.SpawnIsland.launchInteractiveObjects(
@@ -373,7 +376,8 @@ export default class Player extends EventEmitter{
         } else if (activeObject.includes("contact")) {
             this.experience.localStorage.setLocation("contactIsland");
             this.world.ContactIsland.launchInteractiveObjects(
-                activeObject
+                activeObject,
+                intersect
             );
         } else if (activeObject.includes("hobbies")) {
             this.experience.localStorage.setLocation("hobbiesIsland");

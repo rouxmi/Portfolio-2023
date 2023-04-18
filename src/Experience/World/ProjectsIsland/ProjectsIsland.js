@@ -15,6 +15,24 @@ export default class ProjectsIsland extends EventEmitter {
         this.emit("IslandProjectsLoaded");
     }
 
+    launchInteractiveObjects(interactiveObject) {
+        if (interactiveObject.includes("trampoline")) {
+            console.log("trampoline");
+        }
+    }
+
+    
+
+    interactiveActionExecute(interactiveObject){
+        if (interactiveObject.includes("git")) {
+            this.launchGit();
+        } else if (interactiveObject.includes("linkedin")) {
+            this.launchLinkedin();
+        } else if (interactiveObject.includes("mail")) {
+            this.launchMail();
+        }
+    }
+
     resize() {
     }
 

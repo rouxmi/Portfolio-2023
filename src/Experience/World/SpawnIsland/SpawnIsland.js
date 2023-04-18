@@ -58,7 +58,7 @@ export default class SpawnIsland extends EventEmitter {
         if (interactiveObject.includes("petit_panneau")) {
             this.handlePetitPanneau(interactiveObject);
         } else if (interactiveObject.includes("grand_panneau")) {
-            this.handleGrandPanneau(interactiveObject);
+            this.handleGrandPanneau();
         }
     }
 
@@ -97,7 +97,7 @@ export default class SpawnIsland extends EventEmitter {
     }
 
 
-    handleGrandPanneau(interactiveObject) {
+    handleGrandPanneau() {
         console.log("grand panneau");
     }
 

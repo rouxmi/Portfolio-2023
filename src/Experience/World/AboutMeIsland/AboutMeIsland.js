@@ -16,6 +16,25 @@ export default class AboutMeIsland extends EventEmitter {
         this.emit("IslandAboutMeLoaded");
     }
 
+    launchInteractiveObjects(interactiveObject) {
+        if (interactiveObject.includes("bureau")) {
+            this.handleBureau();
+        } else if (interactiveObject.includes("chambre")) {
+            this.handleChambre();
+        }
+    }
+
+    handleBureau() {
+        console.log("bureau");
+    }
+
+    handleChambre() {
+        console.log("chambre");
+    }
+
+    interactiveActionExecute(interactiveObject){
+    }
+
     resize() {
     }
 

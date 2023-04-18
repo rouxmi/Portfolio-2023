@@ -32,6 +32,17 @@ export default class Island {
                     if (child instanceof THREE.Mesh) {
                         child.receiveShadow = true;
                         child.castShadow = true;
+                        if (child.name.includes("contact")){
+                            const color = child.material.color;
+                            child.material = new THREE.MeshPhysicalMaterial();
+                            child.material.side = THREE.DoubleSide;
+                            child.material.roughness = 0;
+                            child.material.color.set(color);
+                            child.material.ior = 3;
+                            child.material.transmission = 0.9;
+                            child.material.opacity = 0.05;
+                            child.material.depthWrite = false;
+                        }
                     }
                 });
             }
