@@ -32,8 +32,6 @@ export default class AboutMeIsland extends EventEmitter {
         console.log("chambre");
     }
 
-    interactiveActionExecute(interactiveObject){
-    }
 
     resize() {
     }

@@ -17,19 +17,33 @@ export default class ProjectsIsland extends EventEmitter {
 
     launchInteractiveObjects(interactiveObject) {
         if (interactiveObject.includes("trampoline")) {
-            console.log("trampoline");
+            this.handleTrampoline();
+        } else if (interactiveObject.includes("panneau")) {
+            this.handlePanneau();
+        } else if (interactiveObject.includes("tuile")) {
+            this.handleTuile();
         }
     }
 
-    
+    handleTrampoline() {
+        console.log("trampoline");
+    }
+
+    handlePanneau() {
+        console.log("panneau");
+    }
+
+    handleTuile() {
+        console.log("tuile");
+    }
 
     interactiveActionExecute(interactiveObject){
-        if (interactiveObject.includes("git")) {
-            this.launchGit();
-        } else if (interactiveObject.includes("linkedin")) {
-            this.launchLinkedin();
-        } else if (interactiveObject.includes("mail")) {
-            this.launchMail();
+        if (interactiveObject.includes("trampoline")) {
+            this.handleTrampoline();
+        } else if (interactiveObject.includes("panneau")) {
+            this.handlePanneau();
+        } else if (interactiveObject.includes("tuile")) {
+            this.handleTuile();
         }
     }
 

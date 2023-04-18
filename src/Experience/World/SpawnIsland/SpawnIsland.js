@@ -54,7 +54,7 @@ export default class SpawnIsland extends EventEmitter {
             0);
     }
 
-    launchInteractiveObjects(interactiveObject) {
+    launchInteractiveObjects(interactiveObject,intersect) {
         if (interactiveObject.includes("petit_panneau")) {
             this.handlePetitPanneau(interactiveObject);
         } else if (interactiveObject.includes("grand_panneau")) {

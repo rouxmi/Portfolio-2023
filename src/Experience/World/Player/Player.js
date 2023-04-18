@@ -80,6 +80,7 @@ export default class Player extends EventEmitter{
     teleportToSpawn() {
         const SpawnPos = new THREE.Vector3( -40.13299673513737,  24.73186758224389,  -58.42532007498026);
         this.player.body.position.copy(SpawnPos);
+        this.player.body.position.y += this.player.height;
         this.player.body.rotation.set(0,3.4,0);
         this.player.velocity = this.player.spawn.velocity;
         this.player.collider.start.copy(SpawnPos);
@@ -183,16 +184,13 @@ export default class Player extends EventEmitter{
         console.log(this.player.island );
         if (this.player.island === "spawnIsland"){
             this.world.SpawnIsland.interactiveActionExecute(this.activeObject);
-        } else if (this.player.island === "aboutMeIsland"){
-            this.world.AboutMeIsland.interactiveActionExecute();
         } else if (this.player.island === "projetIsland"){
             this.world.ProjectsIsland.interactiveActionExecute();
         } else if (this.player.island === "contactIsland"){
             this.world.ContactIsland.interactiveActionExecute(this.activeObject);
         } else if (this.player.island === "hobbiesIsland"){
-            this.world.HobbiesIsland.interactiveActionExecute();
+            this.world.HobbiesIsland.interactiveActionExecute(this.activeObject);
         }
-
     }
 
 

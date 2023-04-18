@@ -30,9 +30,9 @@ export default class Camera{
         );
 
         this.perspectiveCamera.position.set(
-            -39.61353072752363,  
-            28.877048693658686, 
-            -58.899093459760516
+            -40.13299673513737,  
+            24.73186758224389,  
+            -58.42532007498026
         )
         this.perspectiveCamera.rotation.set(
             -0.000,
