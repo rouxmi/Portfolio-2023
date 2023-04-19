@@ -181,7 +181,7 @@ export default class Player extends EventEmitter{
     }
 
     interactiveActionExecute(){
-        console.log(this.player.island );
+
         if (this.player.island === "spawnIsland"){
             this.world.SpawnIsland.interactiveActionExecute(this.activeObject);
         } else if (this.player.island === "projetIsland"){
@@ -196,6 +196,7 @@ export default class Player extends EventEmitter{
 
     onDesktopPointerMove = (event) => {
         if (document.pointerLockElement !== document.body) return;
+        
         this.player.body.rotation.order = this.player.rotation.order;
 
         this.player.body.rotation.x -= event.movementY * 0.002;
@@ -216,6 +217,23 @@ export default class Player extends EventEmitter{
             this.player.onFloor = intersect.normal.y > 0;
 
             this.player.collider.translate(intersect.normal.multiplyScalar(intersect.depth));
+        }
+
+        if (this.world.ProjectsIsland){
+            if (this.world.ProjectsIsland.interactiveObjects){
+                if (this.world.ProjectsIsland.interactiveObjects.trampoline){
+                    const trampoline = this.world.ProjectsIsland.interactiveObjects.trampoline.capsuleIntersect(this.player.collider);
+                    if (trampoline){
+                        if (this.player.onFloor){
+                            this.player.velocity.y = 35;
+                            setTimeout(() => {
+                                this.world.ProjectsIsland.startGame();
+                            }
+                            , 600);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -239,6 +257,10 @@ export default class Player extends EventEmitter{
 
     updateMovement(deltaTime) {
         this.player.previousPosition.copy(this.player.body.position);
+
+        if (this.world.ProjectsIsland){
+            if (this.world.ProjectsIsland.inGame) return;
+        }
 
         const speed = (this.player.onFloor ? 1.75 : 0.2) * 
         this.player.speedMultiplier *
@@ -353,6 +375,9 @@ export default class Player extends EventEmitter{
                     if (smallLeft){
                         smallLeft.classList.remove("small-left-margin");
                     }
+                    if (this.previousActiveObject.includes("trampoline")){
+                        document.querySelector(".teleport-message_image").classList.remove("hidden");
+                    }
                 }
                 this.player.canInteract = false;
             }
@@ -364,7 +389,6 @@ export default class Player extends EventEmitter{
 
 
     launchInteractiveObjectEvent(activeObject,intersect) {
-        console.log(activeObject)
         if (activeObject.includes("spawn")) {
             this.experience.localStorage.setLocation("spawnIsland");
             this.world.SpawnIsland.launchInteractiveObjects(
@@ -375,7 +399,7 @@ export default class Player extends EventEmitter{
             this.world.AboutMeIsland.launchInteractiveObjects(
                 activeObject
             );
-        } else if (activeObject.includes("projet")) {
+        } else if (activeObject.includes("projet") || activeObject.includes("project")) {
             this.experience.localStorage.setLocation("projetIsland");
             this.world.ProjectsIsland.launchInteractiveObjects(
                 activeObject

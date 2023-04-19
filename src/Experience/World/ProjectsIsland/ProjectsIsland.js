@@ -1,5 +1,8 @@
+import * as THREE from "three";
+
 import Island from "./Components/Island.js";
 import InteractiveObjects from "./Components/InteractiveObjects.js";
+import Tiles from "./Components/Tiles.js";
 
 import Experience from "../../Experience.js";
 
@@ -10,28 +13,106 @@ export default class ProjectsIsland extends EventEmitter {
         super();
         this.experience = new Experience();
         this.player = this.experience.world.player;
+        this.inGame = false;
     }
 
     init() {
         this.island = new Island();
         this.interactiveObjects = new InteractiveObjects();
 
+        this.getTiles();
+        this.getTilesPosition();
+        this.randomizeTilesPosition();
+
+        
+        
+
         this.emit("IslandProjectsLoaded");
     }
 
+    getTiles() {
+        this.tilesVisual = [];
+        this.island.island.traverse((child) => {
+            if (child instanceof THREE.Group) {
+                if (child.name.includes("tuile")) {
+                    this.tilesVisual.push(child);
+                }
+            }
+        }
+        );
+        this.tilesCollider = [];
+        this.interactiveObjects.interactiveObject.traverse((child) => {
+            if (child instanceof THREE.Mesh) {
+                if (child.name.includes("tuile")) {
+                    this.tilesCollider.push(child);
+                }
+            }
+        }
+        );
+        this.tiles = [];
+        for (let i = 0; i < this.tilesVisual.length; i++) {
+            for (let j = 0; j < this.tilesCollider.length; j++) {
+                if (this.tilesCollider[j].name.includes(this.tilesVisual[i].name)) {
+                    this.tiles.push(new Tiles(this.tilesVisual[i], this.tilesCollider[j]));
+                    break;
+                }
+            }
+            this.tiles[i].visual.rotation.y=Math.PI;
+        }
+    }
+
+    getTilesPosition() {
+        this.tilesPosition = [];
+        const Xposition = [3.5905189514160156, -5.409481048583984, 12.590518951416016]
+        const Zposition = [-2.2945337295532227,-11.294533729553223,6.705466270446777, 15.705466270446777]
+        for (let i = 0; i < this.tiles.length; i++) {
+            this.tilesPosition.push(new THREE.Vector3(Xposition[i%Xposition.length], 16, Zposition[i%Zposition.length]));
+        }
+    }
+
+    randomizeTilesPosition() {
+        let randomArray = [];
+        for (let i = 0; i < 12; i++) {
+            randomArray.push(i);
+        }
+        randomArray.sort(() => Math.random() - 0.5);
+        for (let i = 0; i < this.tiles.length; i++) {
+            this.tiles[i].collider.position.set(this.tilesPosition[randomArray[i]].x, this.tilesPosition[randomArray[i]].y, this.tilesPosition[randomArray[i]].z);
+            this.tiles[i].visual.position.set(this.tilesPosition[randomArray[i]].x, this.tilesPosition[randomArray[i]].y, this.tilesPosition[randomArray[i]].z);
+        }
+    }
+
+    flipTiles() {
+        for (let i = 0; i < this.tiles.length; i++) {
+            this.tiles[i].flipAnimation();
+        }
+    }
+
+
     launchInteractiveObjects(interactiveObject) {
-        console.log(interactiveObject);
-        if (interactiveObject.includes("trampoline")) {
-            this.handleTrampoline();
-        } else if (interactiveObject.includes("panneau")) {
-            this.handlePanneau();
-        } else if (interactiveObject.includes("tuile")) {
-            this.handleTuile(interactiveObject);
+        if (!this.inGame) {
+            if (interactiveObject.includes("trampoline")) {
+                this.handleTrampoline();
+            } else if (interactiveObject.includes("panneau")) {
+                this.handlePanneau();
+            } else if (interactiveObject.includes("tuile")) {
+                this.handleTuile(interactiveObject);
+            }
+        } else {
+            if (interactiveObject.includes("tuile")) {
+                console.log("tuile"+interactiveObject);
+            }
         }
     }
 
     handleTrampoline() {
-        console.log("trampoline");
+        const teleportMessage = document.querySelector(".teleport-message");
+        teleportMessage.classList.remove("hidden");
+        const teleportMessageText = document.querySelector(".teleport-message_text");
+        teleportMessageText.innerHTML = "To start the game, jump on the Trampoline";
+        const image = document.querySelector(".teleport-message_image")
+        image.classList.add("hidden")
+        this.player.display = teleportMessage;
     }
 
     handlePanneau() {
@@ -146,13 +227,70 @@ export default class ProjectsIsland extends EventEmitter {
     // }
 
     interactiveActionExecute(interactiveObject){
-        if (interactiveObject.includes("trampoline")) {
-            this.handleTrampoline();
-        } else if (interactiveObject.includes("panneau")) {
-            this.handlePanneau();
-        } else if (interactiveObject.includes("tuile")) {
-            this.launchTuile(interactiveObject)
+        if (!this.inGame) {
+            if (interactiveObject.includes("trampoline")) {
+                this.handleTrampoline();
+            } else if (interactiveObject.includes("panneau")) {
+                this.startGame();
+            } else if (interactiveObject.includes("tuile")) {
+                this.launchTuile(interactiveObject)
+            }
         }
+    }
+
+    startGame() {
+        this.inGame = true;
+        this.player.display.classList.add("hidden");
+        this.teleportPlayer();
+        this.showQuitMessage();
+        this.flipTiles();
+    }
+
+    teleportPlayer() {
+        const SpawnPos = new THREE.Vector3( 5,  40,  -15);
+        this.player.player.body.position.copy(SpawnPos);
+        this.player.player.body.position.y += this.player.player.height;
+        this.player.player.body.rotation.set(0,0,0);
+        this.player.player.velocity = this.player.player.spawn.velocity;
+        this.player.player.collider.start.copy(SpawnPos);
+        this.player.player.collider.end.copy(SpawnPos);
+        this.player.player.collider.end.y += this.player.player.height;
+        this.player.player.body.lookAt(0,0,0);
+        this.player.player.raycaster.far = 50;
+    }
+
+    showQuitMessage() {
+        const teleportMessage = document.querySelector(".teleport-message");
+        teleportMessage.classList.remove("hidden");
+        const teleportMessageText = document.querySelector(".teleport-message_text");
+        teleportMessageText.innerHTML = "To quit the game, Press the 'L' key";
+        setTimeout(() => {
+            teleportMessage.classList.add("hidden");
+        }, 5000);
+        //add the event listener to quit the game
+        document.addEventListener("keydown", (event) => {
+            if (event.code === "KeyL") {
+                this.quitGame();
+            }
+        }
+        );
+    }
+
+    quitGame() {
+        this.inGame = false;
+        this.player.display.classList.add("hidden");
+        this.experience.world.SpawnIsland.interactiveActionExecute("project");
+        this.setBackTiles();
+    }
+
+    setBackTiles() {
+        this.tiles.forEach((tile) => {
+            tile.animate = false;
+            tile.visual.rotation.x = 0;
+            tile.visual.position.y = 16;
+            tile.collider.position.y = 16;
+            tile.collider.rotation.y = 0;
+        });
     }
 
     launchTuile(interactiveObject){
@@ -175,5 +313,8 @@ export default class ProjectsIsland extends EventEmitter {
     }
 
     update() {
+        for (let i = 0; i < this.tiles.length; i++) {
+            this.tiles[i].update();
+        }
     }
 }

@@ -75,10 +75,18 @@ export default class Experience{
         if (this.renderer) this.renderer.update();
         if (this.time) this.time.update();
 
+        if (this.world){
+            if (this.world.ProjectsIsland){
+                if (this.world.ProjectsIsland.tiles[0].animate){
+                    this.world.ProjectsIsland.update();
+                }
+            }
+        }
+
         const STEPS_PER_FRAME = 10;
-        this.deltaTime = Math.min(0.1,this.time.delta) / STEPS_PER_FRAME;
+        const deltaTime = Math.min(0.1,this.time.delta) / STEPS_PER_FRAME;
         for (let i = 0; i < STEPS_PER_FRAME; i++) {
-            if (this.world) this.world.update(this.deltaTime);
+            if (this.world) this.world.update(deltaTime);
         }
 
         //every 10 frames save to local storage
