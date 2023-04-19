@@ -185,7 +185,7 @@ export default class Player extends EventEmitter{
         if (this.player.island === "spawnIsland"){
             this.world.SpawnIsland.interactiveActionExecute(this.activeObject);
         } else if (this.player.island === "projetIsland"){
-            this.world.ProjectsIsland.interactiveActionExecute();
+            this.world.ProjectsIsland.interactiveActionExecute(this.activeObject);
         } else if (this.player.island === "contactIsland"){
             this.world.ContactIsland.interactiveActionExecute(this.activeObject);
         } else if (this.player.island === "hobbiesIsland"){
@@ -348,6 +348,10 @@ export default class Player extends EventEmitter{
                     const left =document.querySelector(".left-margin")
                     if (left){
                         left.classList.remove("left-margin");
+                    }
+                    const smallLeft = document.querySelector(".small-left-margin")
+                    if (smallLeft){
+                        smallLeft.classList.remove("small-left-margin");
                     }
                 }
                 this.player.canInteract = false;
