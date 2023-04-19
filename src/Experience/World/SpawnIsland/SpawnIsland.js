@@ -98,7 +98,16 @@ export default class SpawnIsland extends EventEmitter {
 
 
     handleGrandPanneau() {
-        console.log("grand panneau");
+        const section = document.querySelector(".section-left");
+        section.classList.remove("hidden");
+        const titreSection = document.querySelector(".section-title-text-left");
+        titreSection.innerHTML = "Hello";
+        const sousTitreSection = document.querySelector(".section-subtitle-text-left");
+        sousTitreSection.innerHTML = "Controls"
+        const textSection = document.querySelector(".section-detail-left");
+        textSection.classList.add("small-left-margin");
+        textSection.innerHTML = "Welcome to my portfolio, I hope you will enjoy your visit. <br> <br> -Use the mouse to look around, the left click to interact <br> -Use ZQSD to move forward, backward, left and right <br> -Use the space bar to jump <br> -Use the left shift to run or double tap Z.</p>";
+        this.player.display = section;
     }
 
     teleportToIsland(position, rotation) {

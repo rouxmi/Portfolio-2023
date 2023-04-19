@@ -360,6 +360,7 @@ export default class Player extends EventEmitter{
 
 
     launchInteractiveObjectEvent(activeObject,intersect) {
+        console.log(activeObject)
         if (activeObject.includes("spawn")) {
             this.experience.localStorage.setLocation("spawnIsland");
             this.world.SpawnIsland.launchInteractiveObjects(
@@ -370,7 +371,7 @@ export default class Player extends EventEmitter{
             this.world.AboutMeIsland.launchInteractiveObjects(
                 activeObject
             );
-        } else if (activeObject.includes("project")) {
+        } else if (activeObject.includes("projet")) {
             this.experience.localStorage.setLocation("projetIsland");
             this.world.ProjectsIsland.launchInteractiveObjects(
                 activeObject
