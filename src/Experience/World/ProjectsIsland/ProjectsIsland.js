@@ -59,6 +59,11 @@ export default class ProjectsIsland extends EventEmitter {
             }
             this.tiles[i].visual.rotation.y=Math.PI;
         }
+
+        this.tilesDictionary = {};
+        for (let i = 0; i < this.tiles.length; i++) {
+            this.tilesDictionary[this.tiles[i].collider.name] = this.tiles[i];
+        }
     }
 
     getTilesPosition() {
@@ -90,6 +95,9 @@ export default class ProjectsIsland extends EventEmitter {
 
 
     launchInteractiveObjects(interactiveObject) {
+        // if (this.bigTiles){
+        //     this.bigTiles.scale /= 1.2;
+        // }
         if (!this.inGame) {
             if (interactiveObject.includes("trampoline")) {
                 this.handleTrampoline();
@@ -98,12 +106,23 @@ export default class ProjectsIsland extends EventEmitter {
             } else if (interactiveObject.includes("tuile")) {
                 this.handleTuile(interactiveObject);
             }
-        } else {
-            if (interactiveObject.includes("tuile")) {
-                console.log("tuile"+interactiveObject);
-            }
         }
+        // else {
+        //     if (interactiveObject.includes("tuile")) {
+        //         this.tilesDictionary[interactiveObject].scale *= 1.2;
+        //         this.bigTiles = this.tilesDictionary[interactiveObject].visual;
+        //     }
+        // }
     }
+
+    showReturnMessage() {
+        const teleportMessage = document.querySelector(".teleport-message");
+        teleportMessage.classList.remove("hidden");
+        const teleportMessageText = document.querySelector(".teleport-message_text");
+        teleportMessageText.innerHTML = "Click on the tile to return it";
+        this.returnMessage = teleportMessage;
+    }
+
 
     handleTrampoline() {
         const teleportMessage = document.querySelector(".teleport-message");
@@ -227,6 +246,9 @@ export default class ProjectsIsland extends EventEmitter {
     // }
 
     interactiveActionExecute(interactiveObject){
+        // if (this.bigTiles){
+        //     this.bigTiles.scale /= 1.2;
+        // }
         if (!this.inGame) {
             if (interactiveObject.includes("trampoline")) {
                 this.handleTrampoline();
@@ -235,15 +257,106 @@ export default class ProjectsIsland extends EventEmitter {
             } else if (interactiveObject.includes("tuile")) {
                 this.launchTuile(interactiveObject)
             }
+        } else {
+            if (interactiveObject.includes("tuile")) {
+                this.player.display.classList.add("hidden");
+                if (this.gameStarted){
+                    if (!this.tilesDictionary[interactiveObject].found){
+                        this.returnTuile(interactiveObject);
+                    }
+                }
+            }
         }
+    }
+
+    returnTuile(interactiveObject) {
+        if (this.miss){
+            this.clickedTile.returnDown();
+            this.previousTile.returnDown();
+            this.clickedTile = null;
+            this.miss = false;
+        }
+        this.previousTile = this.clickedTile;
+        this.clickedTile = this.tilesDictionary[interactiveObject];
+        this.clickedTile.returnUp();
+        if (this.previousTile === null) return;
+        if (this.previousTile.name === this.clickedTile.name){
+            if (this.previousTile.number !== this.clickedTile.number){
+                this.previousTile.found = true;
+                this.clickedTile.found = true;
+                this.handleTuile(this.clickedTile.name);
+                this.clickedTile = null;
+                this.checkwin();
+            }
+        } else {
+            this.miss=true;
+        }
+    }
+
+    checkwin() {
+        let win = true;
+        for (let i = 0; i < this.tiles.length; i++) {
+            if (!this.tiles[i].found) {
+                win = false;
+            }
+        }
+        if (win) {
+            this.winGame();
+        }
+    }
+
+    winGame() {
+        this.quitGame();
+        this.showWinMessage();
+    }
+
+    showWinMessage() {
+        const winMessage = document.querySelector(".teleport-message");
+        winMessage.classList.remove("hidden");
+        const winMessageText = document.querySelector(".teleport-message_text");
+        winMessageText.innerHTML = "You win !";
+        const winMessageImage = document.querySelector(".teleport-message_image");
+        winMessageImage.classList.add("hidden");
+        this.player.display = winMessage;
     }
 
     startGame() {
         this.inGame = true;
+        this.gameStarted = false;
         this.player.display.classList.add("hidden");
+        this.clickedTile = null;
         this.teleportPlayer();
-        this.showQuitMessage();
         this.flipTiles();
+        this.startCountdown();
+        this.showReturnMessage();
+        setTimeout(() => {
+            const pointer = document.querySelector(".pointer");
+            pointer.classList.remove("hidden");
+            this.showQuitMessage();
+        }, 3000);
+    }
+
+    //make a 3 second countdown
+    startCountdown(){
+        this.player.display.classList.add("hidden");
+        const countdown = document.querySelector(".countdown");
+        countdown.classList.remove("hidden");
+        const countdownText = document.querySelector(".countdown_text");
+        countdownText.innerHTML = "3";
+        setTimeout(() => {
+            countdownText.innerHTML = "2";
+            this.player.display.classList.add("hidden");
+        }, 1000);
+        setTimeout(() => {
+            countdownText.innerHTML = "1";
+            this.player.display.classList.add("hidden");
+        }, 2000);
+        setTimeout(() => {
+            countdown.classList.add("hidden");
+            this.player.display.classList.add("hidden");
+            this.gameStarted = true;
+        }, 3000);
+
     }
 
     teleportPlayer() {
@@ -279,8 +392,12 @@ export default class ProjectsIsland extends EventEmitter {
     quitGame() {
         this.inGame = false;
         this.player.display.classList.add("hidden");
+        this.returnMessage.classList.add("hidden");
+        const pointer = document.querySelector(".pointer");
+        pointer.classList.add("hidden");
         this.experience.world.SpawnIsland.interactiveActionExecute("project");
         this.setBackTiles();
+
     }
 
     setBackTiles() {

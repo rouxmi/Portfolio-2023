@@ -5,8 +5,15 @@ export default class Tiles{
     constructor(visual,collider){
         this.visual = visual;
         this.collider = collider;
+        if (visual.name.includes("1")){
+            this.number = 1;
+        } else {
+            this.number = 2;
+        }
+        this.name = this.visual.name.split("_"+this.number)[0]
         this.Experience = new Experience();
         this.time = this.Experience.time;
+        this.found = false;
     }
 
     flipAnimation(){
@@ -16,6 +23,20 @@ export default class Tiles{
         this.flipTimerDown = this.flipTimerUp +1000;
         this.goDownTimer = this.flipTimerDown +1000;
         this.halfTurnStep = 0.036;
+    }
+
+    returnUp() {
+        this.collider.position.y = 16;
+        this.visual.position.y = 16;
+        this.collider.rotation.x = 0;
+        this.visual.rotation.x = 0;
+    }
+
+    returnDown() {
+        this.collider.position.y = 16.2;
+        this.visual.position.y = 16.2;
+        this.collider.rotation.x = Math.PI;
+        this.visual.rotation.x = Math.PI;
     }
         
 

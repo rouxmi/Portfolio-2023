@@ -225,11 +225,11 @@ export default class Player extends EventEmitter{
                     const trampoline = this.world.ProjectsIsland.interactiveObjects.trampoline.capsuleIntersect(this.player.collider);
                     if (trampoline){
                         if (this.player.onFloor){
-                            this.player.velocity.y = 35;
+                            this.player.velocity.y = 80;
                             setTimeout(() => {
                                 this.world.ProjectsIsland.startGame();
                             }
-                            , 600);
+                            , 1100);
                         }
                     }
                 }
@@ -375,9 +375,7 @@ export default class Player extends EventEmitter{
                     if (smallLeft){
                         smallLeft.classList.remove("small-left-margin");
                     }
-                    if (this.previousActiveObject.includes("trampoline")){
-                        document.querySelector(".teleport-message_image").classList.remove("hidden");
-                    }
+                    document.querySelector(".teleport-message_image").classList.remove("hidden");
                 }
                 this.player.canInteract = false;
             }
