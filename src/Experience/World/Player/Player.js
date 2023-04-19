@@ -345,6 +345,10 @@ export default class Player extends EventEmitter{
             else{
                 if (this.display !== null) {
                     this.display.classList.add("hidden");
+                    const left =document.querySelector(".left-margin")
+                    if (left){
+                        left.classList.remove("left-margin");
+                    }
                 }
                 this.player.canInteract = false;
             }
