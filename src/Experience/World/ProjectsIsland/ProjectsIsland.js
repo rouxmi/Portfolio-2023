@@ -246,6 +246,7 @@ export default class ProjectsIsland extends EventEmitter {
                 this.launchTuile(interactiveObject)
             }
         } else {
+            this.player.display.classList.add("hidden");
             if (interactiveObject.includes("tuile")) {
                 this.player.display.classList.add("hidden");
                 if (this.gameStarted){
