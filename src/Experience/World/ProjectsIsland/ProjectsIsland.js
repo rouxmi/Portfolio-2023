@@ -371,12 +371,12 @@ export default class ProjectsIsland extends EventEmitter {
         const SpawnPos = new THREE.Vector3( 5,  40,  -15);
         this.player.player.body.position.copy(SpawnPos);
         this.player.player.body.position.y += this.player.player.height;
-        this.player.player.body.rotation.set(0,0,0);
+        this.player.player.body.rotation.y = 3.14;
+        this.player.player.body.rotation.x = -0.6;
         this.player.player.velocity = this.player.player.spawn.velocity;
         this.player.player.collider.start.copy(SpawnPos);
         this.player.player.collider.end.copy(SpawnPos);
         this.player.player.collider.end.y += this.player.player.height;
-        this.player.player.body.lookAt(0,0,0);
         this.player.player.raycaster.far = 50;
     }
 
@@ -400,6 +400,7 @@ export default class ProjectsIsland extends EventEmitter {
     quitGame() {
         this.inGame = false;
         this.gameStarted = false;
+        this.player.player.raycaster.far = 10;
         this.player.display.classList.add("hidden");
         const pointer = document.querySelector(".pointer");
         pointer.classList.add("hidden");
