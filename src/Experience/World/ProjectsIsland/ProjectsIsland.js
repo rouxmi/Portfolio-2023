@@ -95,9 +95,6 @@ export default class ProjectsIsland extends EventEmitter {
 
 
     launchInteractiveObjects(interactiveObject) {
-        // if (this.bigTiles){
-        //     this.bigTiles.scale /= 1.2;
-        // }
         if (!this.inGame) {
             if (interactiveObject.includes("trampoline")) {
                 this.handleTrampoline();
@@ -107,12 +104,6 @@ export default class ProjectsIsland extends EventEmitter {
                 this.handleTuile(interactiveObject);
             }
         }
-        // else {
-        //     if (interactiveObject.includes("tuile")) {
-        //         this.tilesDictionary[interactiveObject].scale *= 1.2;
-        //         this.bigTiles = this.tilesDictionary[interactiveObject].visual;
-        //     }
-        // }
     }
 
     showReturnMessage() {
@@ -246,9 +237,6 @@ export default class ProjectsIsland extends EventEmitter {
     // }
 
     interactiveActionExecute(interactiveObject){
-        // if (this.bigTiles){
-        //     this.bigTiles.scale /= 1.2;
-        // }
         if (!this.inGame) {
             if (interactiveObject.includes("trampoline")) {
                 this.handleTrampoline();
@@ -306,26 +294,36 @@ export default class ProjectsIsland extends EventEmitter {
     }
 
     winGame() {
-        this.quitGame();
         this.showWinMessage();
+        setTimeout(() => {
+            this.quitGame();
+            this.inGame = false;
+            this.gameStarted = false;
+        }, 4000);
+        
+        
     }
 
     showWinMessage() {
         const winMessage = document.querySelector(".teleport-message");
         winMessage.classList.remove("hidden");
         const winMessageText = document.querySelector(".teleport-message_text");
-        winMessageText.innerHTML = "You win !";
+        winMessageText.innerHTML = "You win ! With a time of " + ((Date.now() - this.timeStart -3100 ) / 1000 )+ " seconds";
         const winMessageImage = document.querySelector(".teleport-message_image");
         winMessageImage.classList.add("hidden");
-        this.player.display = winMessage;
+        setTimeout(() => {
+            winMessage.classList.add("hidden");
+        }, 8000);
     }
 
     startGame() {
         this.inGame = true;
         this.gameStarted = false;
+        this.timeStart = Date.now();
         this.player.display.classList.add("hidden");
         this.clickedTile = null;
         this.teleportPlayer();
+        this.resetTiles();
         this.flipTiles();
         this.startCountdown();
         this.showReturnMessage();
@@ -333,29 +331,38 @@ export default class ProjectsIsland extends EventEmitter {
             const pointer = document.querySelector(".pointer");
             pointer.classList.remove("hidden");
             this.showQuitMessage();
-        }, 3000);
+        }, 4000);
     }
 
-    //make a 3 second countdown
+    resetTiles() {
+        for (let i = 0; i < this.tiles.length; i++) {
+            this.tiles[i].found = false;
+        }
+    }
+    
     startCountdown(){
         this.player.display.classList.add("hidden");
         const countdown = document.querySelector(".countdown");
-        countdown.classList.remove("hidden");
         const countdownText = document.querySelector(".countdown_text");
-        countdownText.innerHTML = "3";
         setTimeout(() => {
-            countdownText.innerHTML = "2";
+            countdown.classList.remove("hidden");
+            countdownText.innerHTML = "3";
             this.player.display.classList.add("hidden");
         }, 1000);
+        setTimeout(() => {        this.returnMessage.classList.add("hidden");
+
+            countdownText.innerHTML = "2";
+            this.player.display.classList.add("hidden");
+        }, 2000);
         setTimeout(() => {
             countdownText.innerHTML = "1";
             this.player.display.classList.add("hidden");
-        }, 2000);
+        }, 3000);
         setTimeout(() => {
             countdown.classList.add("hidden");
             this.player.display.classList.add("hidden");
             this.gameStarted = true;
-        }, 3000);
+        }, 4000);
 
     }
 
@@ -380,24 +387,24 @@ export default class ProjectsIsland extends EventEmitter {
         setTimeout(() => {
             teleportMessage.classList.add("hidden");
         }, 5000);
-        //add the event listener to quit the game
-        document.addEventListener("keydown", (event) => {
-            if (event.code === "KeyL") {
-                this.quitGame();
-            }
-        }
-        );
+        document.addEventListener("keydown", this.handleQuitGame ,true);
+        document.projectIsland = this.quitGame.bind(this);
     }
+
+    handleQuitGame(event) {
+        event.currentTarget.projectIsland();
+    }
+
 
     quitGame() {
         this.inGame = false;
+        this.gameStarted = false;
         this.player.display.classList.add("hidden");
-        this.returnMessage.classList.add("hidden");
         const pointer = document.querySelector(".pointer");
         pointer.classList.add("hidden");
+        document.removeEventListener("keydown", this.handleQuitGame ,true);
         this.experience.world.SpawnIsland.interactiveActionExecute("project");
         this.setBackTiles();
-
     }
 
     setBackTiles() {

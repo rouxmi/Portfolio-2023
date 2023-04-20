@@ -229,7 +229,7 @@ export default class Player extends EventEmitter{
                             setTimeout(() => {
                                 this.world.ProjectsIsland.startGame();
                             }
-                            , 1100);
+                            , 1000);
                         }
                     }
                 }
@@ -293,7 +293,9 @@ export default class Player extends EventEmitter{
 
         if (this.player.onFloor) {
             if (this.action.jump) {
-                this.player.velocity.y = 17;
+                if (this.player.velocity.y < 50) {
+                    this.player.velocity.y = 17;
+                }
             }
         }
 
@@ -375,7 +377,9 @@ export default class Player extends EventEmitter{
                     if (smallLeft){
                         smallLeft.classList.remove("small-left-margin");
                     }
-                    document.querySelector(".teleport-message_image").classList.remove("hidden");
+                    if (!document.querySelector(".teleport-message_text").innerHTML.includes("win")) {
+                        document.querySelector(".teleport-message_image").classList.remove("hidden");
+                    }
                 }
                 this.player.canInteract = false;
             }
