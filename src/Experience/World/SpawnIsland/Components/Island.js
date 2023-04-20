@@ -19,21 +19,20 @@ export default class Island {
         this.islandTexture = this.resources.items.spawnIsland.Texture;
         this.islandTexture.flipY = false;
         this.islandTexture.encoding = THREE.sRGBEncoding;
-        this.island.children[0].material = new THREE.MeshPhysicalMaterial({
+        this.island.children[0].material = new THREE.MeshStandardMaterial({
             map : this.islandTexture
         });
         this.island.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-                child.receiveShadow = true;
-                child.castShadow = true;
+            child.castShadow = true;
+            child.receiveShadow = true;
+            if (child instanceof THREE.Group){
+                child.children.forEach(groupchild => {
+                    groupchild.castShadow = true;
+                    groupchild.receiveShadow = true;
+                })
             }
-            if (child instanceof THREE.Group) {
-                child.traverse((child) => {
-                    if (child instanceof THREE.Mesh) {
-                        child.receiveShadow = true;
-                        child.castShadow = true;
-                    }
-                });
+            if (child.name.includes("island")) {
+                this.experience.world.islandPosition.spawnIsland = child.position;
             }
         });
         this.scene.add(this.island);

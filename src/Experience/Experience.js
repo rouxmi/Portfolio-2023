@@ -4,6 +4,7 @@ import Sizes from "./Utils/Sizes.js";
 import Time from "./Utils/Time.js";
 import Resources from "./Utils/Resources.js";
 import assets from "./Utils/assets.js";
+import Theme from "./Utils/Theme.js";
 
 import Camera from "./Camera/Camera.js";
 import Renderer from "./Renderer/Renderer.js";
@@ -33,6 +34,7 @@ export default class Experience{
         this.setLocalStorage();
         this.setResources();
         this.setWorld();
+        this.setTheme();
 
         this.sizes.on("resize", () => {
             this.resize();
@@ -65,6 +67,10 @@ export default class Experience{
         this.world = new World();
     }
 
+    setTheme(){
+        this.theme = new Theme();
+    }
+
     resize(){
         this.camera.resize();
         this.renderer.resize();
@@ -88,8 +94,6 @@ export default class Experience{
         for (let i = 0; i < STEPS_PER_FRAME; i++) {
             if (this.world) this.world.update(deltaTime);
         }
-
-        //every 10 frames save to local storage
 
         if (this.time.elapsed % 10 === 0){
             this.localStorage.update();

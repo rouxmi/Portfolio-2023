@@ -33,6 +33,14 @@ export default class World extends EventEmitter {
         this.HobbiesIsland ;
         this.ContactIsland ;
 
+        this.islandPosition = {
+            spawnIsland: new THREE.Vector3(0, 0, 0),
+            aboutMeIsland: new THREE.Vector3(0, 0, 0),
+            projectsIsland: new THREE.Vector3(0, 0, 0),
+            hobbiesIsland: new THREE.Vector3(0, 0, 0),
+            contactIsland: new THREE.Vector3(0, 0, 0),
+        }
+
         
         this.resources.determineLoad(this.state.location);
         
@@ -41,6 +49,9 @@ export default class World extends EventEmitter {
                 this.player = new Player();
             }
             this.setWorld();
+            this.experience.theme.on("switch", (theme) => {
+                this.SpawnIsland.Environment.switchTheme(theme);
+            });     
         });
 
         const helper = new OctreeHelper(this.octree);
