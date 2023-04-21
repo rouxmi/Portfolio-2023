@@ -35,6 +35,9 @@ export default class Island {
                     }
                 });
             }
+            if (child.name.includes("island")) {
+                this.experience.world.islandPosition.hobbiesIsland = child.position;
+            }
         });
         this.scene.add(this.island);
 

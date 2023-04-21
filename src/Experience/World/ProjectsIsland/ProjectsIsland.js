@@ -126,6 +126,7 @@ export default class ProjectsIsland extends EventEmitter {
     }
 
     handlePanneau() {
+        this.experience.theme.setTheme(4);
         const section = document.querySelector(".section-right");
         section.classList.remove("hidden");
         const titreSection = document.querySelector(".section-title-text-right");
@@ -154,6 +155,7 @@ export default class ProjectsIsland extends EventEmitter {
     }
 
     handleFindTheCat() {
+        this.experience.theme.setTheme(4);
         const section = document.querySelector(".section-right");
         section.classList.remove("hidden");
         const titreSection = document.querySelector(".section-title-text-right");
@@ -166,6 +168,7 @@ export default class ProjectsIsland extends EventEmitter {
     }
 
     handlePBFT() {
+        this.experience.theme.setTheme(4);
         const section = document.querySelector(".section-right");
         section.classList.remove("hidden");
         const titreSection = document.querySelector(".section-title-text-right");
@@ -178,6 +181,7 @@ export default class ProjectsIsland extends EventEmitter {
     }
 
     handleBird() {
+        this.experience.theme.setTheme(4);
         const section = document.querySelector(".section-left");
         section.classList.remove("hidden");
         const titreSection = document.querySelector(".section-title-text-left");
@@ -190,6 +194,7 @@ export default class ProjectsIsland extends EventEmitter {
     }
 
     handlePortfolio() {
+        this.experience.theme.setTheme(4);
         const section = document.querySelector(".section-right");
         section.classList.remove("hidden");
         const titreSection = document.querySelector(".section-title-text-right");
@@ -202,6 +207,7 @@ export default class ProjectsIsland extends EventEmitter {
     }
 
     handleEchec() {
+        this.experience.theme.setTheme(4);
         const section = document.querySelector(".section-left");
         section.classList.remove("hidden");
         const titreSection = document.querySelector(".section-title-text-left");
@@ -214,6 +220,7 @@ export default class ProjectsIsland extends EventEmitter {
     }
 
     handleCompiler() {
+        this.experience.theme.setTheme(4);
         const section = document.querySelector(".section-left");
         section.classList.remove("hidden");
         const titreSection = document.querySelector(".section-title-text-left");

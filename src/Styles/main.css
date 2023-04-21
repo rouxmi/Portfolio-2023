@@ -16,32 +16,42 @@ body {
 :root{
   /* Light Mode */
   --color-text-light: #333332;
+  --color-text-titlle-light: #333332;
   --color-background-light: #faf4e580;
-  --color-pink-light: #e5a1aa;
-  --color-blue-light: #8395CD;
-  --color-green-light: #7AD0AC;
+  --color-pink-light: #caffbf;
+  --color-blue-light: #9bf6ff;
+  --color-green-light: #ffadad;
+  --color-yellow-light: #fdffb6;
   /* Dark Mode */
   --color-text-dark: #FAF4E5;
-  --color-background-dark: #8395CD;
+  --color-text-titlle-dark: #8395CD;
+  --color-background-dark: #8395CD80;
   --color-pink-dark: #FAF4E5;
   --color-blue-dark: #FAF4E5
   --color-green-dark: #FAF4E5
+  --color-detail: #fff;
+
+  --hue: 223;
+	--bg: hsl(var(--hue),10%,90%);
+	--fg: hsl(var(--hue),10%,10%);
 }
 
 .light-theme{
   --color-text: var(--color-text-light);
+  --color-text-titlle: var(--color-text-titlle-light);
   --color-background: var(--color-background-light);
   --color-pink: var(--color-pink-light);
+  --color-blue: var(--color-blue-light);
   --color-green: var(--color-green-light);
-  --color-blue:var(--color-blue-light);
 }
 
 .dark-theme{
   --color-text: var(--color-text-dark);
+  --color-text-titlle: var(--color-text-titlle-dark);
   --color-background: var(--color-background-dark);
   --color-pink: var(--color-pink-dark);
+  --color-blue: var(--color-blue-dark);
   --color-green: var(--color-green-dark);
-  --color-blue:var(--color-blue-dark);
 }
 
 .page-wrapper{
@@ -156,7 +166,7 @@ body {
 
 .section-title{
   position: relative;
-  color: var(--color-text);
+  color: var(--color-text-titlle);
   top : 20%;
   animation: fadeIn 2.3s ease-in-out;
   margin-left: calc(20% + 60px);
@@ -173,9 +183,9 @@ body {
   text-align: center;
   text-transform: uppercase;
   display: block;
-  color: var(--color-text);
-  background-color: var(--color-pink);
-  border: 1px solid var(--color-pink);
+  color: var(--color-text-titlle);
+  background-color: var(--color-detail);
+  border: 1px solid var(--color-detail);
 }
 
 .section-subtitle-text{
@@ -189,9 +199,9 @@ body {
   z-index: 10;
   text-transform: uppercase;
   display: block;
-  color: var(--color-text);
-  background-color: var(--color-pink);
-  border: 1px solid var(--color-pink);
+  color: var(--color-text-titlle);
+  background-color: var(--color-detail);
+  border: 1px solid var(--color-detail);
 }
 
 .second{
@@ -207,7 +217,7 @@ body {
   max-width: 278px;
   height: 40px;
   z-index: -90;
-  border: 1px solid var(--color-pink);
+  border: 1px solid var(--color-detail);
   transform-origin: left;
   transform: skewY(-20deg);
 }
@@ -255,7 +265,7 @@ body {
 /* Section */
 .section-title-right{
   position: relative;
-  color: var(--color-text);
+  color: var(--color-text-titlle);
   top : 20%;
   animation: fadeIn 2.3s ease-in-out;
   margin-left: calc(25% + 60px);
@@ -389,7 +399,7 @@ body {
   align-items: center;
   width: 100px;
   height: 100px;
-  border: 1px solid var(--color-pink);
+  border: 1px solid var(--color-detail);
   z-index: 0;
 }
 
@@ -449,9 +459,91 @@ body {
   z-index: 10;
 }
 
+.loader{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-color: #faf4e5;
+  z-index: 5;
+}
+
 
 .hidden{
   display: none;
+}
+
+.loader-wrapper{
+  font: 1em/1.5 sans-serif;
+	height: 100vh;
+	display: grid;
+	place-items: center;
+	transition: background-color 0.3s;
+}
+
+.pl,
+.pl__worm {
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+}
+.pl {
+	animation-name: bump;
+	animation-timing-function: linear;
+	width: 8em;
+	height: 8em;
+}
+.pl__ring {
+	stroke: hsla(var(--hue),10%,10%,0.1);
+	transition: stroke 0.3s;
+}
+.pl__worm {
+	animation-name: worm;
+	animation-timing-function: cubic-bezier(0.42,0.17,0.75,0.83);
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg: hsl(var(--hue),10%,10%);
+		--fg: hsl(var(--hue),10%,90%);
+	}
+	.pl__ring {
+		stroke: hsla(var(--hue),10%,90%,0.1);
+	}
+}
+
+/* Animations */
+@keyframes bump {
+	from,
+	42%,
+	46%,
+	51%,
+	55%,
+	59%,
+	63%,
+	67%,
+	71%,
+	74%,
+	78%,
+	81%,
+	85%,
+	88%,
+	92%,
+	to { transform: translate(0,0); }
+	44% { transform: translate(1.33%,6.75%); }
+	53% { transform: translate(-16.67%,-0.54%); }
+	61% { transform: translate(3.66%,-2.46%); }
+	69% { transform: translate(-0.59%,15.27%); }
+	76% { transform: translate(-1.92%,-4.68%); }
+	83% { transform: translate(9.38%,0.96%); }
+	90% { transform: translate(-4.55%,1.98%); }
+}
+@keyframes worm {
+	from { stroke-dashoffset: 10; }
+	25% { stroke-dashoffset: 295; }
+	to { stroke-dashoffset: 1165; }
 }
 
 @media (max-width: 1120px) {

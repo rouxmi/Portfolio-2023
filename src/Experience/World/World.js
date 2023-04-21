@@ -19,6 +19,7 @@ export default class World extends EventEmitter {
         this.experience = new Experience();
         this.resources = this.experience.resources;
         this.scene = this.experience.scene;
+        this.time = this.experience.time;
 
         this.octree = new Octree();
 
@@ -36,7 +37,7 @@ export default class World extends EventEmitter {
         this.islandPosition = {
             spawnIsland: new THREE.Vector3(0, 0, 0),
             aboutMeIsland: new THREE.Vector3(0, 0, 0),
-            projectsIsland: new THREE.Vector3(0, 0, 0),
+            projetIsland: new THREE.Vector3(0, 0, 0),
             hobbiesIsland: new THREE.Vector3(0, 0, 0),
             contactIsland: new THREE.Vector3(0, 0, 0),
         }
@@ -49,9 +50,9 @@ export default class World extends EventEmitter {
                 this.player = new Player();
             }
             this.setWorld();
-            this.experience.theme.on("switch", (theme) => {
-                this.SpawnIsland.Environment.switchTheme(theme);
-            });     
+            // this.experience.theme.on("switch", (theme) => {
+            //     this.SpawnIsland.Environment.switchTheme(theme);
+            // });     
         });
 
         const helper = new OctreeHelper(this.octree);
@@ -116,6 +117,14 @@ export default class World extends EventEmitter {
         this.ContactIsland = new ContactIsland();
         this.ContactIsland.on("IslandContactLoaded", () => {
             this.player.addInteractiveObjects(this.ContactIsland.interactiveObjects.interactiveObject);
+            //if it's been more than 5 seconds since the page started loading, we can remove the loading screen
+            if (this.time.elapsed > 5000) {
+                document.querySelector(".loader").classList.add("hidden");
+            } else {
+                setTimeout(() => {
+                    document.querySelector(".loader").classList.add("hidden");
+                }, 5000-this.time.elapsed);
+            }
         });
         this.ContactIsland.init();
     }

@@ -1,11 +1,14 @@
 import * as THREE from 'three';
 import Experience from '../../../Experience.js';
+import GSAP from 'gsap';
 
 export default class Environment {
     constructor() {
         this.experience = new Experience();
         this.scene = this.experience.scene;
         this.resources = this.experience.resources;
+
+        this.localStorage = this.experience.localStorage;
 
         this.setEnvironment();
         this.setSunLight();
@@ -16,6 +19,8 @@ export default class Environment {
         this.SkyBox = this.resources.items.spawnIsland.SkyBox;
         this.SkyBox.encoding =  THREE.sRGBEncoding;
 
+        // this.hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0x000000, .9)
+        // this.scene.add(this.hemisphereLight);
         this.scene.background = this.SkyBox;
 
         this.Landscape = this.resources.items.spawnIsland.Landscape.scene;
@@ -43,32 +48,40 @@ export default class Environment {
                 b: 0.6862745098039216,
             });
             GSAP.to(this.ambientLight.color, {
-                r: 0.17254901960784313,
-                g: 0.23137254901960785,
-                b: 0.6862745098039216,
+                r: 0.17254901960784313/2,
+                g: 0.23137254901960785/2,
+                b: 0.6862745098039216/2,
             });
             GSAP.to(this.sunlight, {
-                intensity: 0.78,
+                intensity: 0,
+                castShadow: false,
             });
             GSAP.to(this.ambientLight, {
-                intensity: 0.78,
+                intensity: 2,
+            });
+            GSAP.to(this.scene, {
+                // background: new THREE.Color(0x111111),
             });
         } else {
             GSAP.to(this.sunlight.color, {
-                r: 255 / 255,
-                g: 255 / 255,
-                b: 255 / 255,
+                r: 221 / 255,
+                g: 221 / 255,
+                b: 221 / 255,
             });
             GSAP.to(this.ambientLight.color, {
-                r: 255 / 255,
-                g: 255 / 255,
-                b: 255 / 255,
+                r: 221 / 255,
+                g: 221 / 255,
+                b: 221 / 255,
             });
             GSAP.to(this.sunlight, {
-                intensity: 3,
+                intensity: 0.5,
+                castShadow: true,
             });
             GSAP.to(this.ambientLight, {
-                intensity: 1,
+                intensity: 0.1,
+            });
+            GSAP.to(this.scene, {
+                // background: this.SkyBox,
             });
         }
     }
@@ -89,11 +102,14 @@ export default class Environment {
         this.sunlight.target.updateMatrixWorld();
 
         this.scene.add(this.sunlight);
-        this.scene.add(new THREE.CameraHelper(this.sunlight.shadow.camera));
+        // this.scene.add(new THREE.CameraHelper(this.sunlight.shadow.camera));
 
         this.ambientLight = new THREE.AmbientLight('#dddddd',0.1);
         this.scene.add(this.ambientLight);
 
-
+        this.localStorage.on("locationChanged", (island) => {
+            this.sunlight.target.position.set(this.experience.world.islandPosition[island].x, this.experience.world.islandPosition[island].y, this.experience.world.islandPosition[island].z);
+            this.sunlight.target.updateMatrixWorld();
+        })
     }
 }

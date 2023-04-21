@@ -31,6 +31,7 @@ export default class HobbiesIsland extends EventEmitter {
     }
 
     handleVelo() {
+        this.experience.theme.setTheme(1);
         const section = document.querySelector(".section-right");
         section.classList.remove("hidden");
         const titreSection = document.querySelector(".section-title-text-right");
@@ -43,6 +44,7 @@ export default class HobbiesIsland extends EventEmitter {
     }
 
     handleRootMe() {
+        this.experience.theme.setTheme(1);
         const section = document.querySelector(".section-left");
         section.classList.remove("hidden");
         const titreSection = document.querySelector(".section-title-text-left");
@@ -55,6 +57,7 @@ export default class HobbiesIsland extends EventEmitter {
     }
 
     handleSurf() {
+        this.experience.theme.setTheme(1);
         const section = document.querySelector(".section-right");
         section.classList.remove("hidden");
         const titreSection = document.querySelector(".section-title-text-right");

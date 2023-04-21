@@ -1,7 +1,9 @@
 import Experience from "../Experience";
+import { EventEmitter } from "events";
 
-export default class LocalStorage{
+export default class LocalStorage extends EventEmitter {
     constructor(){
+        super();
         this.experience = new Experience();
         this.camera = this.experience.camera;
 
@@ -56,6 +58,9 @@ export default class LocalStorage{
     }
 
     setLocation(location){
+        if (location !== this.stringState.location){
+            this.emit("locationChanged", location);
+        }
         this.stringState.location = location;
         this.experience.world.player.player.island = location;
     }

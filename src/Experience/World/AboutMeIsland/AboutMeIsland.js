@@ -27,6 +27,7 @@ export default class AboutMeIsland extends EventEmitter {
     }
 
     handleBureau() {
+        this.experience.theme.setTheme(3);
         const section = document.querySelector(".section-left");
         section.classList.remove("hidden");
         const titreWrapperSection = document.querySelector(".section-title");
@@ -87,6 +88,7 @@ export default class AboutMeIsland extends EventEmitter {
     }
 
     handleChambre() {
+        this.experience.theme.setTheme(3);
         const section = document.querySelector(".section-right");
         section.classList.remove("hidden");
         const titreSection = document.querySelector(".section-title-text-right");

@@ -12,10 +12,12 @@ export default class Player extends EventEmitter{
         this.camera = this.experience.camera;
         this.time = this.experience.time;
         this.world = this.experience.world;
+        this.localStorage = this.experience.localStorage;
 
         this.octree = this.experience.world.octree; 
 
         this.display = null;
+        this.frame = 0;
 
         this.initPlayer();
         this.initControls();
@@ -38,6 +40,9 @@ export default class Player extends EventEmitter{
         };
 
         this.player.island = localStorage.getItem("playerPosition").split("|")[0];
+        if (this.player.island === "undefined"){
+            this.player.island = "spawnIsland";
+        }
 
         this.player.raycaster = new THREE.Raycaster();
         this.player.raycaster.far = 10;
@@ -361,6 +366,7 @@ export default class Player extends EventEmitter{
         }
 
         if (this.activeObject !== this.previousActiveObject) {
+            if (this.reset) {this.activeObject = ""};
             this.previousActiveObject = this.activeObject;
             if (this.activeObject !== "") {
                 this.player.canInteract = true;
@@ -384,6 +390,7 @@ export default class Player extends EventEmitter{
                     }
                 }
                 this.player.canInteract = false;
+                this.reset = false;
             }
         } else if (this.activeObject.includes("contact") && intersects[0].distance < 1) {
             this.launchInteractiveObjectEvent(this.activeObject,intersects[0]);
@@ -422,11 +429,51 @@ export default class Player extends EventEmitter{
         }
     }
 
+
+    checkChangeIsland() {
+        const currentIsland = this.player.island;
+        if (currentIsland === "spawnIsland") {
+            if (this.player.body.position.x > -4) {
+                this.localStorage.setLocation("aboutMeIsland");
+            }
+        } else if (currentIsland === "aboutMeIsland") {
+            if (this.player.body.position.x < -5) {
+                this.localStorage.setLocation("spawnIsland");
+            }
+            if (this.player.body.position.z > -31) {
+                this.localStorage.setLocation("projetIsland");
+            }
+        } else if (currentIsland === "projetIsland") {
+            if (this.player.body.position.z < -32) {
+                this.localStorage.setLocation("aboutMeIsland");
+            }
+            if (this.player.body.position.z> 40) {
+                this.localStorage.setLocation("hobbiesIsland");
+            }
+        } else if (currentIsland === "contactIsland") {
+            if (this.player.body.position.x < -1) {
+                this.localStorage.setLocation("hobbiesIsland");
+            }
+        } else if (currentIsland === "hobbiesIsland") {
+            if (this.player.body.position.z < 39) {
+                this.localStorage.setLocation("projetIsland");
+            }
+            if (this.player.body.position.x > 0) {
+                this.localStorage.setLocation("contactIsland");
+            }
+
+        }
+    }
+
     update(deltaTime) {
 
         this.updateMovement(deltaTime);
         this.updateRaycaster();
 
+        if (this.frame % 10 === 0) {
+            this.checkChangeIsland();
+        }
+        this.frame++;
         // console.log(this.player.body.position);
 
         // console.log(this.player.collider.start);

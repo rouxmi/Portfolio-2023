@@ -79,12 +79,16 @@ export default class SpawnIsland extends EventEmitter {
     interactiveActionExecute(interactiveObject){
         if (interactiveObject.includes("about_me")) {
             this.teleportToIsland(this.aboutMeIslandPosition, this.aboutMeIslandRotation);
+            this.experience.localStorage.setLocation("aboutMeIsland")
         } else if (interactiveObject.includes("hobbies")) {
             this.teleportToIsland(this.hobbiesIslandPosition, this.hobbiesIslandRotation);
+            this.experience.localStorage.setLocation("hobbiesIsland")
         } else if (interactiveObject.includes("project")) {
             this.teleportToIsland(this.projectsIslandPosition, this.projectsIslandRotation);
+            this.experience.localStorage.setLocation("projetIsland");
         } else if (interactiveObject.includes("contact")) {
             this.teleportToIsland(this.contactIslandPosition, this.contactIslandRotation);
+            this.experience.localStorage.setLocation("contactIsland");
         }
     }
 
@@ -98,6 +102,7 @@ export default class SpawnIsland extends EventEmitter {
 
 
     handleGrandPanneau() {
+        this.experience.theme.setTheme(2);
         const section = document.querySelector(".section-left");
         section.classList.remove("hidden");
         const titreSection = document.querySelector(".section-title-text-left");
