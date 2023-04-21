@@ -65,6 +65,7 @@ export default class Experience{
 
     setWorld(){
         this.world = new World();
+        this.world.startWelcome();
     }
 
     setTheme(){
@@ -74,6 +75,14 @@ export default class Experience{
     resize(){
         this.camera.resize();
         this.renderer.resize();
+        this.mobile = this.sizes.width < 968;
+        if (this.mobile){
+            document.querySelector(".welcome-message-wrapper").classList.remove("hidden");
+        }
+        else{
+            document.querySelector(".welcome-message-wrapper").classList.add("hidden");
+            if (this.world) this.world.startLoading();
+        }
     }
 
     update(){

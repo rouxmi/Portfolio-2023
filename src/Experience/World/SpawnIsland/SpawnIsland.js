@@ -111,7 +111,7 @@ export default class SpawnIsland extends EventEmitter {
         sousTitreSection.innerHTML = "Controls"
         const textSection = document.querySelector(".section-detail-left");
         textSection.classList.add("small-left-margin");
-        textSection.innerHTML = "Welcome to my portfolio, I hope you will enjoy your visit. <br> <br> -Use the mouse to look around, the left click to interact <br> -Use ZQSD to move forward, backward, left and right <br> -Use the space bar to jump <br> -Use the left shift to run or double tap Z.</p>";
+        textSection.innerHTML = "<span class='bold'>I hope you will enjoy your visit. </span> <br> <br> -Use the mouse to look around, the left click to interact <br> -Use ZQSD to move forward, backward, left and right <br> -Use the space bar to jump <br> -Use the left shift to run or double tap Z.<br> -Use N to switch to dark mode.</p>";
         this.player.display = section;
     }
 

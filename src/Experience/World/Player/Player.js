@@ -21,7 +21,7 @@ export default class Player extends EventEmitter{
 
         this.initPlayer();
         this.initControls();
-        this.addEventListeners();
+        
     }
 
     initPlayer() {
@@ -45,7 +45,7 @@ export default class Player extends EventEmitter{
         }
 
         this.player.raycaster = new THREE.Raycaster();
-        this.player.raycaster.far = 10;
+        this.player.raycaster.far = 13;
         this.player.raycaster.near = 0.1;
 
         this.player.height = 2.7;
@@ -351,6 +351,8 @@ export default class Player extends EventEmitter{
         );
     }
 
+
+
     updateRaycaster() {
         this.player.raycaster.ray.origin.copy(this.player.body.position);
         this.player.raycaster.ray.direction.copy(this.getCameraLookAtVector());
@@ -463,6 +465,10 @@ export default class Player extends EventEmitter{
             }
 
         }
+    }
+
+    startInteraction() {
+        this.addEventListeners();
     }
 
     update(deltaTime) {

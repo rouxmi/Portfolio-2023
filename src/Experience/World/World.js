@@ -55,6 +55,8 @@ export default class World extends EventEmitter {
             // });     
         });
 
+
+
         const helper = new OctreeHelper(this.octree);
         helper.visible = true;
         //this.scene.add(helper);
@@ -117,17 +119,53 @@ export default class World extends EventEmitter {
         this.ContactIsland = new ContactIsland();
         this.ContactIsland.on("IslandContactLoaded", () => {
             this.player.addInteractiveObjects(this.ContactIsland.interactiveObjects.interactiveObject);
-            //if it's been more than 5 seconds since the page started loading, we can remove the loading screen
-            if (this.time.elapsed > 5000) {
-                document.querySelector(".loader").classList.add("hidden");
-            } else {
-                setTimeout(() => {
-                    document.querySelector(".loader").classList.add("hidden");
-                }, 5000-this.time.elapsed);
-            }
+            this.allLoaded = true;
+            this.emit("allIslandsLoaded")
         });
         this.ContactIsland.init();
     }
+
+    startWelcome() {
+        const startButton = document.querySelector(".start-button-wrapper");
+        startButton.addEventListener("click", () => {
+            if (this.experience.sizes.width <968){
+                // launch an alert
+                alert("Please use a bigger screen to enjoy the full experience");
+            } else {
+                this.startLoading();
+            }
+        });
+    }
+
+    startLoading() {
+        document.querySelector(".welcome-message-wrapper").classList.add("hidden");
+        document.querySelector(".loader").classList.remove("hidden");
+        if (this.allLoaded){
+            setTimeout(() => {
+                this.startInteraction();
+            }, 3000);
+        } else {
+            const loader = Date.now();
+            this.on("allIslandsLoaded", () => {
+                if (Date.now() - loader > 3000) {
+                    this.startInteraction();
+                } else {
+                    setTimeout(() => {
+                        this.startInteraction();
+                    }, 3000-Date.now() + loader);
+                }
+            });
+        }
+        
+    }
+
+    startInteraction() {
+        document.querySelector(".loader").classList.add("hidden");
+        document.body.requestPointerLock();
+        this.player.startInteraction();
+    }
+
+
 
     update(deltaTime){
         if (this.player != null){
