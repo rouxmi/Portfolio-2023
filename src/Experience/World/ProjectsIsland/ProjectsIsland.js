@@ -110,7 +110,7 @@ export default class ProjectsIsland extends EventEmitter {
         const teleportMessage = document.querySelector(".teleport-message");
         teleportMessage.classList.remove("hidden");
         const teleportMessageText = document.querySelector(".teleport-message_text");
-        teleportMessageText.innerHTML = "Click on the tile to return it";
+        teleportMessageText.innerHTML = "Click on this tile to return it";
         this.returnMessage = teleportMessage;
     }
 
@@ -134,7 +134,7 @@ export default class ProjectsIsland extends EventEmitter {
         const sousTitreSection = document.querySelector(".section-subtitle-text-right");
         sousTitreSection.innerHTML = "Game";
         const textSection = document.querySelector(".section-detail-right");
-        textSection.innerHTML = "I like to create games. I have created a small games for you to play to discover some of my favourite projects. You can play it by clicking on the sign or by jumping on the trampoline. If you just want to see the projects, you can look at the tiles on the ground.";
+        textSection.innerHTML = "I like to create games. I have created a small game for you to discover some of my favourite projects. You can play it by clicking on this sign or by jumping on the trampoline. If you just want to see the projects, you can look at the tiles on the ground.";
         this.player.display = section;
     }
 
@@ -176,7 +176,7 @@ export default class ProjectsIsland extends EventEmitter {
         const sousTitreSection = document.querySelector(".section-subtitle-text-right");
         sousTitreSection.innerHTML = "PBFT";
         const textSection = document.querySelector(".section-detail-right");
-        textSection.innerHTML = "This project is currently in progress. It is a open good market, supported by a blockchain with a PBFT protocol. It is written in Java and uses the Babel framework. The source code is not available for the moment, but you can click ^^.";
+        textSection.innerHTML = "This project is currently in progress. It is an open good market, supported by a blockchain with a PBFT(Practical Byzantine Fault Tolerance) protocol. It is written in Java and uses the Babel framework. The source code is not available for the moment, but you can click ^^.";
         this.player.display = section;
     }
 
@@ -189,7 +189,7 @@ export default class ProjectsIsland extends EventEmitter {
         const sousTitreSection = document.querySelector(".section-subtitle-text-left");
         sousTitreSection.innerHTML = "BIRD"
         const textSection = document.querySelector(".section-detail-left");
-        textSection.innerHTML = "Bird stand for Bird Is Really Democratic. It is my first project at Telecom Nancy. The goal of the project was to make a democratic WebApp. Our app allows you to create projects and to give update, discuss about them and to vote for them. You can find the source code by clicking this tile.";
+        textSection.innerHTML = "Bird stand for Bird Is Really Democratic. It is my first project at Telecom Nancy. The goal of the project was to make a democratic WebApp. Our app allows you to create projects and to give update, to discuss about them and to vote for them. You can find the source code by clicking this tile.";
         this.player.display = section;
     }
 
@@ -215,7 +215,7 @@ export default class ProjectsIsland extends EventEmitter {
         const sousTitreSection = document.querySelector(".section-subtitle-text-left");
         sousTitreSection.innerHTML = "Chess"
         const textSection = document.querySelector(".section-detail-left");
-        textSection.innerHTML = "During Covid-19, i decided to code a chess game. This chess game implemented from scratch has many fonctionnalities. You can play against a friend or against an IA and see stats of the game. You can find the source code by clicking this tile.";
+        textSection.innerHTML = "During Covid-19, I decided to code a chess game. This chess game implemented from scratch has many fonctionnalities. You can play against a friend or against an IA and see statistics of the game. You can find the source code by clicking this tile.";
         this.player.display = section;
     }
 

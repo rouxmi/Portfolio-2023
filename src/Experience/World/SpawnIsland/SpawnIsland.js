@@ -54,7 +54,7 @@ export default class SpawnIsland extends EventEmitter {
             0);
     }
 
-    launchInteractiveObjects(interactiveObject,intersect) {
+    launchInteractiveObjects(interactiveObject) {
         if (interactiveObject.includes("petit_panneau")) {
             this.handlePetitPanneau(interactiveObject);
         } else if (interactiveObject.includes("grand_panneau")) {
@@ -64,7 +64,7 @@ export default class SpawnIsland extends EventEmitter {
 
     handlePetitPanneau(interactiveObject) {
         if (interactiveObject.includes("about_me")) {
-            this.islandName = "island About Me";
+            this.islandName = "island about me";
         } else if (interactiveObject.includes("hobbies")) {
             this.islandName = "Hobbies island";
         } else if (interactiveObject.includes("project")) {
@@ -106,12 +106,12 @@ export default class SpawnIsland extends EventEmitter {
         const section = document.querySelector(".section-left");
         section.classList.remove("hidden");
         const titreSection = document.querySelector(".section-title-text-left");
-        titreSection.innerHTML = "Hello";
+        titreSection.innerHTML = "Basics";
         const sousTitreSection = document.querySelector(".section-subtitle-text-left");
         sousTitreSection.innerHTML = "Controls"
         const textSection = document.querySelector(".section-detail-left");
         textSection.classList.add("small-left-margin");
-        textSection.innerHTML = "<span class='bold'>I hope you will enjoy your visit. </span> <br> <br> -Use the mouse to look around, the left click to interact <br> -Use ZQSD to move forward, backward, left and right <br> -Use the space bar to jump <br> -Use the left shift to run or double tap Z.<br> -Use N to switch to dark mode.</p>";
+        textSection.innerHTML = "<span class='bold'>I hope you will enjoy your visit. </span> <br> <br> -Use the mouse to look around, the left click to interact <br> -Use ZQSD to move forward, backward, left and right <br> -Use the space bar to jump <br> -Use the left shift to run or double tap Z.<br> -Use N to switch to dark text mode.</p>";
         this.player.display = section;
     }
 

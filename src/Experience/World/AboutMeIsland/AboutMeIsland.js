@@ -38,7 +38,7 @@ export default class AboutMeIsland extends EventEmitter {
         sousTitreSection.innerHTML = "Skills";
         const textSection = document.querySelector(".section-detail-left");
         textSection.innerHTML = `
-        <p class="header-section-detail-right">A non exaustive list of the Language that i use :</p>
+        <p class="header-section-detail-right">A non exaustive list of the Language that I use :</p>
         <div class='skills'>
             <div class='skill'>
                 <img src='image/Java.png' alt='Java' class='skill-logo'>

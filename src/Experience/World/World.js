@@ -126,19 +126,44 @@ export default class World extends EventEmitter {
     }
 
     startWelcome() {
+        const welcomeMessage = document.querySelector(".welcome-message-wrapper");
+        welcomeMessage.classList.remove("hidden");
+        const welcomeMessageTextWelcome = document.querySelector(".welcome-message_text-welcome");
+        welcomeMessageTextWelcome.innerHTML = "Welcome,"
+        const welcomeMessageTextName = document.querySelector(".welcome-message_text-name");
+        welcomeMessageTextName.innerHTML = "I'm Bourdais Rémi,"
+        const welcomeMessageTextPortfolio = document.querySelector(".welcome-message_text-portfolio");
+        welcomeMessageTextPortfolio.innerHTML = "This is my portfolio."
+        const welcomeMessageSubText = document.querySelector(".welcome-message_subtext");
+        welcomeMessageSubText.innerHTML = "This is an immersive experience. <br /> Please use a desktop computer for the best experience."
         const startButton = document.querySelector(".start-button-wrapper");
+        startButton.innerHTML = `<button class="start-button" type="button">
+            <span class="start-button_text">Start</span>
+            </button>`
         startButton.addEventListener("click", () => {
+            this.asClicked = true;
             if (this.experience.sizes.width <968){
-                // launch an alert
                 alert("Please use a bigger screen to enjoy the full experience");
             } else {
                 this.startLoading();
+                document.body.requestPointerLock();
             }
         });
     }
 
     startLoading() {
         document.querySelector(".welcome-message-wrapper").classList.add("hidden");
+        const pl = document.querySelector(".loader-wrapper");
+        pl.innerHTML = `<svg class="pl" viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+            <linearGradient id="pl-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="hsl(193,43%,66%)" />
+                <stop offset="100%" stop-color="hsl(223,43%,66%)" />
+            </linearGradient>
+            </defs>
+            <circle class="pl__ring" r="56" cx="64" cy="64" fill="none" stroke="hsla(0,10%,10%,0.1)" stroke-width="16" stroke-linecap="round" />
+            <path class="pl__worm" d="M92,15.492S78.194,4.967,66.743,16.887c-17.231,17.938-28.26,96.974-28.26,96.974L119.85,59.892l-99-31.588,57.528,89.832L97.8,19.349,13.636,88.51l89.012,16.015S81.908,38.332,66.1,22.337C50.114,6.156,36,15.492,36,15.492a56,56,0,1,0,56,0Z" fill="none" stroke="url(#pl-grad)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="44 1111" stroke-dashoffset="10" />
+        </svg>`;
         document.querySelector(".loader").classList.remove("hidden");
         if (this.allLoaded){
             setTimeout(() => {
@@ -161,9 +186,10 @@ export default class World extends EventEmitter {
 
     startInteraction() {
         document.querySelector(".loader").classList.add("hidden");
-        document.body.requestPointerLock();
         this.player.startInteraction();
+        this.player.player.body.rotation.set(0,3.30,0);
     }
+
 
 
 

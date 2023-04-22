@@ -18,6 +18,7 @@ export default class Player extends EventEmitter{
 
         this.display = null;
         this.frame = 0;
+        this.activatePointerTime = 0;
 
         this.initPlayer();
         this.initControls();
@@ -86,11 +87,14 @@ export default class Player extends EventEmitter{
         const SpawnPos = new THREE.Vector3( -40.13299673513737,  24.73186758224389,  -58.42532007498026);
         this.player.body.position.copy(SpawnPos);
         this.player.body.position.y += this.player.height;
-        this.player.body.rotation.set(0,3.4,0);
+        this.player.body.rotation.set(0,3.40,0);
         this.player.velocity = this.player.spawn.velocity;
         this.player.collider.start.copy(SpawnPos);
         this.player.collider.end.copy(SpawnPos);
         this.player.collider.end.y += this.player.height;
+        if (this.world.allLoaded && this.player.island === "aboutMeIsland") {
+            console.log("Well done, you managed to escape my portfolio!");
+        }
     }
 
 
@@ -173,15 +177,20 @@ export default class Player extends EventEmitter{
 
     onPointerDown = (event) => {
         if (event.pointerType === "mouse") {
-            if (document.pointerLockElement !== document.body) {
-                this.action = {};
-                document.body.requestPointerLock();
-            } else {
+            if (document.pointerLockElement === document.body) {
                 if (this.player.canInteract){
                     this.interactiveActionExecute();
                 }
+            } else {
+                const now = Date.now();
+                if (document.querySelector(".welcome-message-wrapper").classList.contains("hidden") && (now - this.activatePointerTime) > 1000){
+                    this.activatePointerTime = Date.now();
+                    document.body.requestPointerLock();
+                }
             }
             return;
+        } else {
+            alert("Please use a mouse to play this game");
         }
     }
 
@@ -371,6 +380,9 @@ export default class Player extends EventEmitter{
             if (this.reset) {this.activeObject = ""};
             this.previousActiveObject = this.activeObject;
             if (this.activeObject !== "") {
+                if (this.display !== null) {
+                    this.display.classList.add("hidden");
+                }
                 this.player.canInteract = true;
                 this.launchInteractiveObjectEvent(this.activeObject,intersects[0]);
             }
@@ -437,10 +449,12 @@ export default class Player extends EventEmitter{
         if (currentIsland === "spawnIsland") {
             if (this.player.body.position.x > -4) {
                 this.localStorage.setLocation("aboutMeIsland");
+                this.player.raycaster.far = 10;
             }
         } else if (currentIsland === "aboutMeIsland") {
             if (this.player.body.position.x < -5) {
                 this.localStorage.setLocation("spawnIsland");
+                this.player.raycaster.far = 15;
             }
             if (this.player.body.position.z > -31) {
                 this.localStorage.setLocation("projetIsland");

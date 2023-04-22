@@ -180,8 +180,6 @@ body {
   position: relative;
   font-size: 130%;
   font-weight: 500;
-  transform-origin: left;
-  transform: skewY(15deg);
   z-index: 10;
   white-space: nowrap;
   text-align: center;
@@ -198,8 +196,6 @@ body {
   white-space: nowrap;
   text-align: center;
   font-weight: 500;
-  transform-origin: left;
-  transform: skewY(15deg);
   z-index: 10;
   text-transform: uppercase;
   display: block;
@@ -231,7 +227,7 @@ body {
 }
 
 .styleTwo{
-  top: 50px;  
+  top: 62px;  
 }
 
 /* Section Text*/
@@ -256,7 +252,7 @@ body {
 
 .section-detail{
   text-align: justify;
-  text-justify: distribute;
+  text-justify: inter-word;
   font-size: 1.5rem;
   position: relative;
   width: max(170%, 240px);
@@ -340,7 +336,7 @@ body {
 
 .section-detail-right{
   text-align: justify;
-  text-justify: distribute;
+  text-justify: inter-word;
   justify-content: center;
   font-size: 1.5rem;
   position: relative;
@@ -421,7 +417,7 @@ body {
   position: relative;
   width: 45%;
   text-align: justify;
-  text-justify: distribute;
+  text-justify: inter-word;
   justify-content: center;
   top: -10%;
 }
@@ -489,14 +485,16 @@ body {
   position: absolute;
   top: 20%;
   left: 20%;
+  width: 100%;
   background-color: #faf4e5;
-  z-index: 8;
+  z-index: 9;
 }
 
 .welcome-message_text{
   font-size: 2rem;
   font-weight: 700;
   color: var(--color-text);
+  z-index: 9;
 }
 
 .welcome-message_text-name{
@@ -504,18 +502,21 @@ body {
   font-weight: 700;
   color: var(--color-text);
   padding: 1rem;
+  z-index: 9;
 }
 
 .welcome-message_text-welcome{
   font-size: 4rem;
   font-weight: 800;
   color: var(--color-text-titlle-dark);
+  z-index: 9;
 }
 
 .welcome-message_text-portfolio{
   font-size: 2.5rem;
   font-weight: 600;
   padding: 1rem;
+  z-index: 9;
 }
 
 
@@ -524,16 +525,17 @@ body {
   font-weight: 500;
   color: var(--color-text);
   padding: 2rem;
+  z-index: 9;
 }
 
 .start-button-wrapper{
-  position: absolute;
-  top: 70%;
-  left: 65%;
+  position: relative;
+  left: 60%;
+  margin-top: 22%;
   transform: translate(-50%, -50%);
   width: 300px;
   height: 70px;
-  z-index: 8;
+  z-index: 9;
 }
 
 .start-button{

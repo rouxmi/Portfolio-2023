@@ -39,7 +39,7 @@ export default class HobbiesIsland extends EventEmitter {
         const sousTitreSection = document.querySelector(".section-subtitle-text-right");
         sousTitreSection.innerHTML = "Bike";
         const textSection = document.querySelector(".section-detail-right");
-        textSection.innerHTML = "I like to ride my road bike. I like to go out on the road and to discover new places, that's why i travel a lot with my bike. I want to do the most beautiful climbs in France, i've started climbing in the Pyrenees. Some images of my bike rides are display in portfolio.";
+        textSection.innerHTML = "I like to ride my road bike, to go out on the road and to discover new places, that's why I travel a lot with my bike. I want to do the most beautiful climbs in France, i've started climbing in the Pyrenees. Some images of my bike rides are display in this portfolio.";
         this.player.display = section;
     }
 
@@ -52,7 +52,7 @@ export default class HobbiesIsland extends EventEmitter {
         const sousTitreSection = document.querySelector(".section-subtitle-text-left");
         sousTitreSection.innerHTML = "Root-Me"
         const textSection = document.querySelector(".section-detail-left");
-        textSection.innerHTML = "I enjoy solving challenges on the Root-Me platform. In particular, I like to solve the challenges related to the web and to steganography. If you didn't know, Root-Me is a platform that allows you to learn about cybersecurity and to test your skills. You can visit my profile by clicking the sign.";
+        textSection.innerHTML = "I enjoy solving challenges on the Root-Me platform. In particular, I like to solve the challenges related to the web and to steganography. If you didn't know, Root-Me is a french platform that allows you to learn about cybersecurity and to test your skills. You can visit my profile by clicking the sign.";
         this.player.display = section;
     }
 
@@ -65,7 +65,7 @@ export default class HobbiesIsland extends EventEmitter {
         const sousTitreSection = document.querySelector(".section-subtitle-text-right");
         sousTitreSection.innerHTML = "Surf";
         const textSection = document.querySelector(".section-detail-right");
-        textSection.innerHTML = "I started surfing during my erasmus in Portugal at Lisbon. I really like to surf, it's a great way to relax and to enjoy the ocean. I also like to run on the beach, it's a great way to start a day.";
+        textSection.innerHTML = "I started surfing during my erasmus in Lisbon, Portugal. I really like to surf, it's a great way to relax and to enjoy the ocean. I also like to run on the beach, it's a great way to start a day.";
         this.player.display = section;
     }
 
