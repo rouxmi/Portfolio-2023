@@ -530,8 +530,8 @@ body {
 
 .start-button-wrapper{
   position: relative;
-  left: 60%;
-  margin-top: 22%;
+  left: 50%;
+  margin-top: 250px;
   transform: translate(-50%, -50%);
   width: 300px;
   height: 70px;
