@@ -12,8 +12,10 @@
     "vite": "^4.2.0"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "events": "^3.3.0",
     "gsap": "^3.11.5",
+    "jquery": "^3.6.4",
     "three": "^0.151.3",
     "vite-plugin-glsl": "^1.1.2"
   }
