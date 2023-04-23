@@ -399,7 +399,6 @@ body {
   align-items: center;
   width: 100px;
   height: 100px;
-  border: 1px solid var(--color-detail);
   z-index: 0;
 }
 
@@ -530,8 +529,8 @@ body {
 
 .start-button-wrapper{
   position: relative;
-  left: 50%;
-  margin-top: 250px;
+  left: 160px;
+  margin-top: 150px;
   transform: translate(-50%, -50%);
   width: 300px;
   height: 70px;
@@ -664,5 +663,23 @@ body {
   } 
   .section-detail-right{
     right: 60px;
+  }
+}
+
+@media (max-width: 968px) {
+  .welcome-message_text-welcome{
+    font-size: 3rem;
+  }
+  .welcome-message_text-portfolio{
+    font-size: 2rem;
+  }
+  .welcome-message_subtext{
+    font-size: 1.2rem;
+  }
+  .welcome-message_text-name{
+    font-size: 2.5rem;
+  }
+  .start-button_text{
+    font-size: 1.8rem;
   }
 }

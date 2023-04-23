@@ -131,7 +131,7 @@ export default class World extends EventEmitter {
         const welcomeMessageTextWelcome = document.querySelector(".welcome-message_text-welcome");
         welcomeMessageTextWelcome.innerHTML = "Welcome,"
         const welcomeMessageTextName = document.querySelector(".welcome-message_text-name");
-        welcomeMessageTextName.innerHTML = "I'm Bourdais Rémi,"
+        welcomeMessageTextName.innerHTML = "I'm Rémi Bourdais,"
         const welcomeMessageTextPortfolio = document.querySelector(".welcome-message_text-portfolio");
         welcomeMessageTextPortfolio.innerHTML = "This is my portfolio."
         const welcomeMessageSubText = document.querySelector(".welcome-message_subtext");

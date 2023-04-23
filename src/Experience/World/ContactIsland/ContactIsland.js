@@ -21,26 +21,11 @@ export default class ContactIsland extends EventEmitter {
 
     launchInteractiveObjects(interactiveObject, intersect) {
         if (interactiveObject.includes("git")) {
-            if (intersect.distance > 1) {
                 this.handleGit();
-            }
-            else {
-                this.launchGit();
-            }
         } else if (interactiveObject.includes("linkedin")) {
-            if (intersect.distance > 1) {
-                this.handleLinkedin();
-            }
-            else {
-                this.launchLinkedin();
-            }
+            this.handleLinkedin();
         } else if (interactiveObject.includes("mail")) {
-            if (intersect.distance > 1) {
-                this.handleMail();
-            }
-            else {
-                this.launchMail();
-            }
+            this.handleMail();
         }
     }
 
@@ -80,6 +65,7 @@ export default class ContactIsland extends EventEmitter {
     }
 
     teleportBackPlayer() {
+        this.player.action = {}
         this.SpawnIsland.interactiveActionExecute("contact");
     }
 

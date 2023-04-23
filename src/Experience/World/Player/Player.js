@@ -185,6 +185,7 @@ export default class Player extends EventEmitter{
                 const now = Date.now();
                 if (document.querySelector(".welcome-message-wrapper").classList.contains("hidden") && (now - this.activatePointerTime) > 1000){
                     this.activatePointerTime = Date.now();
+                    this.action = {};
                     document.body.requestPointerLock();
                 }
             }
@@ -229,27 +230,36 @@ export default class Player extends EventEmitter{
 
         if (intersect){
             this.player.onFloor = intersect.normal.y > 0;
-
             this.player.collider.translate(intersect.normal.multiplyScalar(intersect.depth));
         }
 
-        if (this.world.ProjectsIsland){
-            if (this.world.ProjectsIsland.interactiveObjects){
-                if (this.world.ProjectsIsland.interactiveObjects.trampoline){
-                    const trampoline = this.world.ProjectsIsland.interactiveObjects.trampoline.capsuleIntersect(this.player.collider);
-                    if (trampoline){
-                        if (this.player.onFloor){
-                            this.player.velocity.y = 80;
-                            setTimeout(() => {
-                                this.world.ProjectsIsland.startGame();
-                            }
-                            , 1000);
+        if (this.player.island === "contactIsland"){
+            if (this.world.ContactIsland.interactiveObjects.portals){
+                Object.values(this.world.ContactIsland.interactiveObjects.portals).forEach(portal => {
+                    const portalIntersect = portal.capsuleIntersect(this.player.collider);
+                    if (portalIntersect){
+                        this.world.ContactIsland.interactiveActionExecute(Object.keys(this.world.ContactIsland.interactiveObjects.portals).find(key => this.world.ContactIsland.interactiveObjects.portals[key] === portal));
+                    }
+                });
+            }
+        }
+
+        if (this.player.island === "projetIsland"){
+            if (this.world.ProjectsIsland.interactiveObjects.trampoline){
+                const trampoline = this.world.ProjectsIsland.interactiveObjects.trampoline.capsuleIntersect(this.player.collider);
+                if (trampoline){
+                    if (this.player.onFloor){
+                        this.player.velocity.y = 80;
+                        setTimeout(() => {
+                            this.world.ProjectsIsland.startGame();
                         }
+                        , 1000);
                     }
                 }
             }
         }
     }
+    
 
     getForwardVector() {
         this.camera.perspectiveCamera.getWorldDirection(this.player.direction);
@@ -406,8 +416,6 @@ export default class Player extends EventEmitter{
                 this.player.canInteract = false;
                 this.reset = false;
             }
-        } else if (this.activeObject.includes("contact") && intersects[0].distance < 1) {
-            this.launchInteractiveObjectEvent(this.activeObject,intersects[0]);
         }
     }
 
