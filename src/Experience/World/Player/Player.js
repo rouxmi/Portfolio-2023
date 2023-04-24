@@ -198,13 +198,13 @@ export default class Player extends EventEmitter{
     interactiveActionExecute(){
 
         if (this.player.island === "spawnIsland"){
-            this.world.SpawnIsland.interactiveActionExecute(this.activeObject);
+            this.world.SpawnIsland.interactiveActionExecute(this.activeObject,true);
         } else if (this.player.island === "projetIsland"){
-            this.world.ProjectsIsland.interactiveActionExecute(this.activeObject);
+            this.world.ProjectsIsland.interactiveActionExecute(this.activeObject,true);
         } else if (this.player.island === "contactIsland"){
-            this.world.ContactIsland.interactiveActionExecute(this.activeObject);
+            this.world.ContactIsland.interactiveActionExecute(this.activeObject,true);
         } else if (this.player.island === "hobbiesIsland"){
-            this.world.HobbiesIsland.interactiveActionExecute(this.activeObject);
+            this.world.HobbiesIsland.interactiveActionExecute(this.activeObject,true);
         }
     }
 

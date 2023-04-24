@@ -106,14 +106,6 @@ export default class ProjectsIsland extends EventEmitter {
         }
     }
 
-    showReturnMessage() {
-        const teleportMessage = document.querySelector(".teleport-message");
-        teleportMessage.classList.remove("hidden");
-        const teleportMessageText = document.querySelector(".teleport-message_text");
-        teleportMessageText.innerHTML = "Click on this tile to return it";
-        this.returnMessage = teleportMessage;
-    }
-
 
     handleTrampoline() {
         const teleportMessage = document.querySelector(".teleport-message");
@@ -334,11 +326,10 @@ export default class ProjectsIsland extends EventEmitter {
         this.resetTiles();
         this.flipTiles();
         this.startCountdown();
-        this.showReturnMessage();
+        this.showQuitMessage();
         setTimeout(() => {
             const pointer = document.querySelector(".pointer");
             pointer.classList.remove("hidden");
-            this.showQuitMessage();
         }, 4000);
     }
 
@@ -357,8 +348,7 @@ export default class ProjectsIsland extends EventEmitter {
             countdownText.innerHTML = "3";
             this.player.display.classList.add("hidden");
         }, 1000);
-        setTimeout(() => {        this.returnMessage.classList.add("hidden");
-
+        setTimeout(() => { 
             countdownText.innerHTML = "2";
             this.player.display.classList.add("hidden");
         }, 2000);
@@ -391,7 +381,7 @@ export default class ProjectsIsland extends EventEmitter {
         const teleportMessage = document.querySelector(".teleport-message");
         teleportMessage.classList.remove("hidden");
         const teleportMessageText = document.querySelector(".teleport-message_text");
-        teleportMessageText.innerHTML = "To quit the game, Press the 'L' key";
+        teleportMessageText.innerHTML = "Click on a tile to return it and to quit the game, press the 'L' key";
         setTimeout(() => {
             teleportMessage.classList.add("hidden");
         }, 5000);
@@ -412,7 +402,7 @@ export default class ProjectsIsland extends EventEmitter {
         const pointer = document.querySelector(".pointer");
         pointer.classList.add("hidden");
         document.removeEventListener("keydown", this.handleQuitGame ,true);
-        this.experience.world.SpawnIsland.interactiveActionExecute("project");
+        this.experience.world.SpawnIsland.interactiveActionExecute("project",true);
         this.setBackTiles();
     }
 

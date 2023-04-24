@@ -75,7 +75,7 @@ export default class HobbiesIsland extends EventEmitter {
     }
 
     teleportBackPlayer() {
-        this.SpawnIsland.interactiveActionExecute("hobbies");
+        this.SpawnIsland.interactiveActionExecute("hobbies",false);
     }
 
 

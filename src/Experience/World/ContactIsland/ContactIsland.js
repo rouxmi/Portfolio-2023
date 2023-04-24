@@ -56,7 +56,7 @@ export default class ContactIsland extends EventEmitter {
     }
 
     handleMail() {
-        this.showPortailMessage("Click or go through the portal to send me a mail!");
+        this.showPortailMessage("Click or go through the portal to send me a email!");
     }
 
     launchMail(){
@@ -66,7 +66,7 @@ export default class ContactIsland extends EventEmitter {
 
     teleportBackPlayer() {
         this.player.action = {}
-        this.SpawnIsland.interactiveActionExecute("contact");
+        this.SpawnIsland.interactiveActionExecute("contact",false);
     }
 
     interactiveActionExecute(interactiveObject){

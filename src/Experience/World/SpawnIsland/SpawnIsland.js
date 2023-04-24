@@ -76,8 +76,10 @@ export default class SpawnIsland extends EventEmitter {
         this.showTeleportMessage(textIsland);
     }
 
-    interactiveActionExecute(interactiveObject){
-        this.player.player.velocity.y = 80;
+    interactiveActionExecute(interactiveObject, jump){
+        if (jump && !interactiveObject.includes("grand_panneau")){
+            this.player.player.velocity.y = 80;
+        }
         setTimeout(() => {
             if (interactiveObject.includes("about_me")) {
                 this.teleportToIsland(this.aboutMeIslandPosition, this.aboutMeIslandRotation);
