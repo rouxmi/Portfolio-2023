@@ -75,7 +75,7 @@ export default class ContactIsland extends EventEmitter {
         }
         this.opened = true;
         this.teleportBackPlayer();
-        window.open("contact-form.html", "_blank");
+        window.open("Contact/contact-form.html", "_blank");
         window.focus();
     }
 

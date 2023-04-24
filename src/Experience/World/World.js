@@ -68,8 +68,8 @@ export default class World extends EventEmitter {
         this.SpawnIsland = new SpawnIsland();
         this.SpawnIsland.on("IslandSpawnLoaded", () => {
             this.resources.determineLoad("aboutMeIsland");
-
             this.resources.on("aboutMeIslandready", () => {
+                this.SpawnIslandLoaded = true;
                 this.setAboutMeIsland();
             });
         });
@@ -82,6 +82,7 @@ export default class World extends EventEmitter {
         this.AboutMeIsland.on("IslandAboutMeLoaded", () => {
             this.resources.determineLoad("projectsIsland");
             this.resources.on("projectsIslandready", () => {
+                this.AboutMeIslandLoaded = true;
                 this.setProjectsIsland();
             }
             );
@@ -95,6 +96,7 @@ export default class World extends EventEmitter {
         this.ProjectsIsland.on("IslandProjectsLoaded", () => {
             this.resources.determineLoad("hobbiesIsland");
             this.resources.on("hobbiesIslandready", () => {
+                this.ProjectsIslandLoaded = true;
                 this.setHobbiesIsland();
             });
         });
@@ -107,6 +109,7 @@ export default class World extends EventEmitter {
         this.HobbiesIsland.on("IslandHobbiesLoaded", () => {
             this.resources.determineLoad("contactIsland");
             this.resources.on("contactIslandready", () => {
+                this.hobbiesIslandLoaded = true;
                 this.setContactIsland();
             }
             );
@@ -142,7 +145,7 @@ export default class World extends EventEmitter {
             </button>`
         startButton.addEventListener("click", () => {
             this.asClicked = true;
-            if (this.experience.sizes.width <968){
+            if (this.experience.sizes.width <968 || this.experience.sizes.height < 600){
                 alert("Please use a bigger screen to enjoy the full experience");
             } else {
                 this.startLoading();
@@ -163,13 +166,48 @@ export default class World extends EventEmitter {
             </defs>
             <circle class="pl__ring" r="56" cx="64" cy="64" fill="none" stroke="hsla(0,10%,10%,0.1)" stroke-width="16" stroke-linecap="round" />
             <path class="pl__worm" d="M92,15.492S78.194,4.967,66.743,16.887c-17.231,17.938-28.26,96.974-28.26,96.974L119.85,59.892l-99-31.588,57.528,89.832L97.8,19.349,13.636,88.51l89.012,16.015S81.908,38.332,66.1,22.337C50.114,6.156,36,15.492,36,15.492a56,56,0,1,0,56,0Z" fill="none" stroke="url(#pl-grad)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="44 1111" stroke-dashoffset="10" />
-        </svg>`;
+        </svg>
+        <p class="percentage"></p>`;
         document.querySelector(".loader").classList.remove("hidden");
         if (this.allLoaded){
+            const percent = document.querySelector(".percentage");
+            percent.innerHTML = "100%";
             setTimeout(() => {
                 this.startInteraction();
-            }, 3000);
+            }, 1000);
         } else {
+            const percent = document.querySelector(".percentage");
+            percent.innerHTML = "0%";
+            if (this.SpawnIslandLoaded){
+                percent.innerHTML = "20%";
+            }  
+            if (this.AboutMeIslandLoaded){
+                percent.innerHTML = "40%";
+            } 
+            if (this.ProjectsIslandLoaded){
+                percent.innerHTML = "60%";
+            }
+            if (this.hobbiesIslandLoaded){
+                percent.innerHTML = "80%";
+            }
+            if (this.allLoaded){
+                percent.innerHTML = "100%";
+            }
+            this.resources.on("contactIslandready", () => {
+                percent.innerHTML = "100%";
+            });
+            this.resources.on("hobbiesIslandready", () => {
+                percent.innerHTML = "80%";
+            });
+            this.resources.on("projectsIslandready", () => {
+                percent.innerHTML = "60%";
+            });
+            this.resources.on("aboutMeIslandready", () => {
+                percent.innerHTML = "40%";
+            });
+            this.resources.on("spawnIslandready", () => {
+                percent.innerHTML = "20%";
+            });
             const loader = Date.now();
             this.on("allIslandsLoaded", () => {
                 if (Date.now() - loader > 3000) {

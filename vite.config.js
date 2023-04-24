@@ -8,6 +8,12 @@ export default defineConfig({
     build: {
         outDir:"../build",
         emptyOutDir: true,
+        rollupOptions: {
+            input: {
+                main:  'src/index.html',
+                contact:'src/Contact/contact-form.html',
+            }
+        }
     }
     
 });
