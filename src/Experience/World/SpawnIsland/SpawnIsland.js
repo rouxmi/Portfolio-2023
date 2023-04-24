@@ -72,24 +72,27 @@ export default class SpawnIsland extends EventEmitter {
         } else if (interactiveObject.includes("contact")) {
             this.islandName = "Contact's island";
         }
-        const textIsland = "Left click to teleport to the "+ this.islandName;
+        const textIsland = "Left click to jump to the "+ this.islandName;
         this.showTeleportMessage(textIsland);
     }
 
     interactiveActionExecute(interactiveObject){
-        if (interactiveObject.includes("about_me")) {
-            this.teleportToIsland(this.aboutMeIslandPosition, this.aboutMeIslandRotation);
-            this.experience.localStorage.setLocation("aboutMeIsland")
-        } else if (interactiveObject.includes("hobbies")) {
-            this.teleportToIsland(this.hobbiesIslandPosition, this.hobbiesIslandRotation);
-            this.experience.localStorage.setLocation("hobbiesIsland")
-        } else if (interactiveObject.includes("project")) {
-            this.teleportToIsland(this.projectsIslandPosition, this.projectsIslandRotation);
-            this.experience.localStorage.setLocation("projetIsland");
-        } else if (interactiveObject.includes("contact")) {
-            this.teleportToIsland(this.contactIslandPosition, this.contactIslandRotation);
-            this.experience.localStorage.setLocation("contactIsland");
-        }
+        this.player.player.velocity.y = 80;
+        setTimeout(() => {
+            if (interactiveObject.includes("about_me")) {
+                this.teleportToIsland(this.aboutMeIslandPosition, this.aboutMeIslandRotation);
+                this.experience.localStorage.setLocation("aboutMeIsland")
+            } else if (interactiveObject.includes("hobbies")) {
+                this.teleportToIsland(this.hobbiesIslandPosition, this.hobbiesIslandRotation);
+                this.experience.localStorage.setLocation("hobbiesIsland")
+            } else if (interactiveObject.includes("project")) {
+                this.teleportToIsland(this.projectsIslandPosition, this.projectsIslandRotation);
+                this.experience.localStorage.setLocation("projetIsland");
+            } else if (interactiveObject.includes("contact")) {
+                this.teleportToIsland(this.contactIslandPosition, this.contactIslandRotation);
+                this.experience.localStorage.setLocation("contactIsland");
+            }
+        }, 1000);
     }
 
     showTeleportMessage(textIsland) {

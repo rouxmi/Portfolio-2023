@@ -134,7 +134,7 @@ export default class ProjectsIsland extends EventEmitter {
         const sousTitreSection = document.querySelector(".section-subtitle-text-right");
         sousTitreSection.innerHTML = "Game";
         const textSection = document.querySelector(".section-detail-right");
-        textSection.innerHTML = "I like to create games. I have created a small game for you to discover some of my favourite projects. You can play it by clicking on this sign or by jumping on the trampoline. If you just want to see the projects, you can look at the tiles on the ground.";
+        textSection.innerHTML = "I like to create games. I have created a small game for you to discover some of my favourites projects. You can play it by clicking on this sign or by jumping on the trampoline. If you just want to see the projects, you can look at the tiles on the ground.";
         this.player.display = section;
     }
 

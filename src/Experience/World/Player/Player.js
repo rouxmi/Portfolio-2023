@@ -191,7 +191,7 @@ export default class Player extends EventEmitter{
             }
             return;
         } else {
-            alert("Please use a mouse to play this game");
+            alert("Please use a mouse to use this website");
         }
     }
 
