@@ -75,10 +75,21 @@ export default class Experience{
     resize(){
         this.camera.resize();
         this.renderer.resize();
-        this.mobile = this.sizes.width < 968 || this.sizes.height < 870;
+        this.mobile = this.sizes.width < 968 || this.sizes.height < 820;
         if (this.mobile){
-            document.querySelector(".welcome-message-wrapper").classList.remove("hidden");
+            document.querySelector(".pause-button").removeEventListener("click", this.handlePause ,true);
+            document.querySelector(".welcome-message-wrapper").classList.add("hidden");
+            document.querySelector(".pause-wrapper").classList.remove("hidden");
+            document.querySelector(".pause-button_text").innerHTML = "Change to desktop to play";
+        } else {
+            document.querySelector(".pause-button_text").innerHTML = "Continue";
+            document.querySelector(".pause-button").addEventListener("click", this.handlePause ,true);
         }
+    }
+
+    handlePause(event){
+        document.querySelector(".pause-wrapper").classList.add("hidden");
+        document.body.requestPointerLock();
     }
 
     update(){
@@ -102,6 +113,12 @@ export default class Experience{
 
         if (this.time.elapsed % 10 === 0){
             this.localStorage.update();
+            if (document.pointerLockElement !== document.body && document.querySelector(".welcome-message-wrapper").classList.contains("hidden")) {
+                document.querySelector(".pause-wrapper").classList.remove("hidden");
+                document.querySelector(".pause-button_text").innerHTML = "Continue";
+                document.querySelector(".pause-button").addEventListener("click", this.handlePause ,true);
+            }
+
         }
 
 

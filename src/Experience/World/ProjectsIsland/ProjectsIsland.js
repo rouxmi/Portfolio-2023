@@ -322,15 +322,11 @@ export default class ProjectsIsland extends EventEmitter {
         this.timeStart = Date.now();
         this.player.display.classList.add("hidden");
         this.clickedTile = null;
+        this.showQuitMessage();
         this.teleportPlayer();
         this.resetTiles();
         this.flipTiles();
         this.startCountdown();
-        this.showQuitMessage();
-        setTimeout(() => {
-            const pointer = document.querySelector(".pointer");
-            pointer.classList.remove("hidden");
-        }, 4000);
     }
 
     resetTiles() {
@@ -344,23 +340,32 @@ export default class ProjectsIsland extends EventEmitter {
         const countdown = document.querySelector(".countdown");
         const countdownText = document.querySelector(".countdown_text");
         setTimeout(() => {
+            if (!this.inGame) return;
             countdown.classList.remove("hidden");
             countdownText.innerHTML = "3";
             this.player.display.classList.add("hidden");
+            setTimeout(() => { 
+                if (!this.inGame) return;
+                countdownText.innerHTML = "2";
+                this.player.display.classList.add("hidden");
+                setTimeout(() => {
+                    if (!this.inGame) return;
+                    countdownText.innerHTML = "1";
+                    this.player.display.classList.add("hidden");
+                    setTimeout(() => {
+                        if (!this.inGame) return;
+                        countdown.classList.add("hidden");
+                        this.player.display.classList.add("hidden");
+                        const pointer = document.querySelector(".pointer");
+                        pointer.classList.remove("hidden");
+                        this.gameStarted = true;
+                    }, 1000);
+                }, 1000);
+            }, 1000);
         }, 1000);
-        setTimeout(() => { 
-            countdownText.innerHTML = "2";
-            this.player.display.classList.add("hidden");
-        }, 2000);
-        setTimeout(() => {
-            countdownText.innerHTML = "1";
-            this.player.display.classList.add("hidden");
-        }, 3000);
-        setTimeout(() => {
-            countdown.classList.add("hidden");
-            this.player.display.classList.add("hidden");
-            this.gameStarted = true;
-        }, 4000);
+       
+        
+        
 
     }
 
@@ -382,15 +387,14 @@ export default class ProjectsIsland extends EventEmitter {
         teleportMessage.classList.remove("hidden");
         const teleportMessageText = document.querySelector(".teleport-message_text");
         teleportMessageText.innerHTML = "Click on a tile to return it and to quit the game, press the 'L' key";
-        setTimeout(() => {
-            teleportMessage.classList.add("hidden");
-        }, 5000);
         document.addEventListener("keydown", this.handleQuitGame ,true);
         document.projectIsland = this.quitGame.bind(this);
     }
 
     handleQuitGame(event) {
-        event.currentTarget.projectIsland();
+        if (event.code === "KeyL"){
+            event.currentTarget.projectIsland();
+        }
     }
 
 
@@ -401,6 +405,10 @@ export default class ProjectsIsland extends EventEmitter {
         this.player.display.classList.add("hidden");
         const pointer = document.querySelector(".pointer");
         pointer.classList.add("hidden");
+        const countdown = document.querySelector(".countdown");
+        countdown.classList.add("hidden");
+        const teleportMessage = document.querySelector(".teleport-message");
+        teleportMessage.classList.add("hidden");
         document.removeEventListener("keydown", this.handleQuitGame ,true);
         this.experience.world.SpawnIsland.interactiveActionExecute("project",true);
         this.setBackTiles();

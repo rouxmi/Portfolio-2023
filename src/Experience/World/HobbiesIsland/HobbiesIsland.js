@@ -70,12 +70,20 @@ export default class HobbiesIsland extends EventEmitter {
     }
 
     launchRootMe() {
+        if (this.opened) {
+            return;
+        }
+        this.opened = true;
         this.teleportBackPlayer();
-        window.open("https://root-me.org/Rouxmi", "_blank");
+        var newWindow = window.open("https://root-me.org/Rouxmi", "_blank");
+        newWindow.blur();
+        window.focus();
     }
 
     teleportBackPlayer() {
+        this.player.action = {};
         this.SpawnIsland.interactiveActionExecute("hobbies",false);
+        this.opened = false;
     }
 
 

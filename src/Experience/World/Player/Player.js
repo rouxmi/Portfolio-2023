@@ -181,14 +181,7 @@ export default class Player extends EventEmitter{
                 if (this.player.canInteract){
                     this.interactiveActionExecute();
                 }
-            } else {
-                const now = Date.now();
-                if (document.querySelector(".welcome-message-wrapper").classList.contains("hidden") && (now - this.activatePointerTime) > 1000){
-                    this.activatePointerTime = Date.now();
-                    this.action = {};
-                    document.body.requestPointerLock();
-                }
-            }
+            } 
             return;
         } else {
             alert("Please use a mouse to use this website");

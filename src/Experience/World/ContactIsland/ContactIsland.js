@@ -42,8 +42,13 @@ export default class ContactIsland extends EventEmitter {
     }
 
     launchGit() {
+        if (this.opened) {
+            return;
+        }
+        this.opened = true;
         this.teleportBackPlayer();
         window.open("https://github.com/rouxmi", "_blank");
+        window.focus();
     }
 
     handleLinkedin() {
@@ -51,8 +56,13 @@ export default class ContactIsland extends EventEmitter {
     }
 
     launchLinkedin() {
+        if (this.opened) {
+            return;
+        }
+        this.opened = true;
         this.teleportBackPlayer();
         window.open("https://www.linkedin.com/in/remi-bourdais/", "_blank");
+        window.focus();
     }
 
     handleMail() {
@@ -60,13 +70,19 @@ export default class ContactIsland extends EventEmitter {
     }
 
     launchMail(){
+        if (this.opened) {
+            return;
+        }
+        this.opened = true;
         this.teleportBackPlayer();
         window.open("contact-form.html", "_blank");
+        window.focus();
     }
 
     teleportBackPlayer() {
-        this.player.action = {}
+        this.player.action = {};
         this.SpawnIsland.interactiveActionExecute("contact",false);
+        this.opened = false;
     }
 
     interactiveActionExecute(interactiveObject){

@@ -279,14 +279,14 @@ body {
   position: relative;
   width: 80%;
   margin: 20% 10%;
-  height: auto;
+  height:  100%;
 }
 
 
 
 .section-detail{
   text-align: justify;
-  text-justify: inter-word;
+  text-justify: distribute-all-lines;
   font-size: 1.5rem;
   position: relative;
   z-index: 5;
@@ -539,7 +539,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 100;
+  z-index: 10;
   color: var(--color-text-dark);
 }
 
@@ -564,9 +564,7 @@ body {
 
 
 
-.hidden{
-  display: none;
-}
+
 
 .loader-wrapper{
   font: 1em/1.5 sans-serif;
@@ -605,6 +603,48 @@ body {
 	.pl__ring {
 		stroke: hsla(var(--hue),10%,90%,0.1);
 	}
+}
+
+.pause-wrapper{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-color: #faf4e590;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 30;
+}
+
+.pause-button{
+  height: fit-content;
+  width: fit-content;
+  background-color: var(--color-titlle);
+  border: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 30;
+  color: var(--color-text-dark);
+}
+
+.pause-button:hover{
+  background-color: var(--color-titlle-dark);
+  border: 3px solid var(--color-titlle);
+  cursor: pointer;
+  color : var(--color-titlle);
+}
+
+.pause-button_text{
+  position: relative;
+  font-size: 2.3rem;
+  font-weight: 800;
+  letter-spacing: 0.1rem;
+  margin: 0 1rem;
 }
 
 /* Animations */
@@ -672,4 +712,31 @@ body {
   .start-button_text{
     font-size: 1.8rem;
   }
+}
+
+@media (max-height: 820px) {
+  .section-detail,
+  .section-detail-right{
+    font-size: 1rem;
+  }
+  .skills{
+    grid-gap: 0.2rem;
+  }
+  .skill{
+    width: 80px;
+    height: 80px;
+  }
+  .skill-logo{
+    width: 50px;
+    height: 50px;
+  }
+  .skill-name{
+    font-size: 1rem;
+  } 
+  
+}
+
+
+.hidden{
+  display: none;
 }

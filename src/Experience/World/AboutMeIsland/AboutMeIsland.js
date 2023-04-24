@@ -38,7 +38,7 @@ export default class AboutMeIsland extends EventEmitter {
         sousTitreSection.innerHTML = "Skills";
         const textSection = document.querySelector(".section-detail-left");
         textSection.innerHTML = `
-        <p class="header-section-detail-right">A non exaustive list of the languages that I use :</p>
+        <p class="header-section-detail-right">A non exaustive list of the languages and software that I use :</p>
         <div class='skills'>
             <div class='skill'>
                 <img src='image/Java.png' alt='Java' class='skill-logo'>
@@ -96,7 +96,7 @@ export default class AboutMeIsland extends EventEmitter {
         const sousTitreSection = document.querySelector(".section-subtitle-text-right");
         sousTitreSection.innerHTML = "Intro";
         const textSection = document.querySelector(".section-detail-right");
-        textSection.innerHTML = "Hi, I'm Rémi Bourdais, a french student in computer science at Telecom Nancy. I'm 21 years old and I'm currently in my 4th year of studies. I'm interrested in Web Application in particular the immersive one and cybersecurity.";
+        textSection.innerHTML = "I'm Rémi Bourdais, a french student in computer science at Telecom Nancy. I'm 21 years old and I'm currently in my 4th year of studies. I'm interrested in Web Application in particular the immersive one and cybersecurity.";
         this.player.display = section;
     }
 

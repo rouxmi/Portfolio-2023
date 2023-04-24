@@ -23,35 +23,35 @@ export default class SpawnIsland extends EventEmitter {
             24.555918121337893, 
             -56.464962978968124,);
         this.aboutMeIslandRotation = new THREE.Euler(
-            0.002000000000000038,
+            0,
             4.847999999999994,
-            0);
+            this.player.player.body.rotation.z);
 
         this.hobbiesIslandPosition = new THREE.Vector3(
             -23.580914246915132,
             23.722435379028322,
             54.53173064229903);
         this.hobbiesIslandRotation = new THREE.Euler(
-            -0.08399999999999919,
+            -0,
             2.354000000000017,
-            0);
+            this.player.player.body.rotation.z);
 
         this.projectsIslandPosition = new THREE.Vector3( 24.870571603277327, 
             18.903372192382815, 
             -3.67283760588);
         this.projectsIslandRotation = new THREE.Euler(
-            -0.0339999999999997, 
+            -0,
             4.693999999999933, 
-            0);
+            this.player.player.body.rotation.z);
 
         this.contactIslandPosition = new THREE.Vector3(
             27.86532093928932,
             27.567198181152346,
             71.74424479499977);
         this.contactIslandRotation = new THREE.Euler(
-            -0.017999999999999933,
+            -0,
             4.652000000000011,
-            0);
+            this.player.player.body.rotation.z);
     }
 
     launchInteractiveObjects(interactiveObject) {
