@@ -3,7 +3,7 @@ My 2023 portfolio with an immersive 3D experience using ThreeJs.
 
 ## Demo
 
-[Link to the fully deploy version](remi-bourdais.fr)
+[Link to the fully deploy version](http://remi-bourdais.fr)
 ## Main functionalities
 
 - [x] 3D environment
